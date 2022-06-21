@@ -1,2 +1,9 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<nav>
+  <% if current_user.profile.nil? %>
+    <h3>Welcome to PeoplePages, <%= current_user.email %>!</h3>
+    <h4>Let's get started by creating your profile</h4>
+    
+  <% else %>
+    <%= link_to "Edit Profile", edit_profile_path %>
+  <% end %>
+</nav>
