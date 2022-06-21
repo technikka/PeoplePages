@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users do
-    root 'devise/sessions#new'
-  end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'users/show'
+  devise_for :users
+  resources :users, only: [:show]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
 end
