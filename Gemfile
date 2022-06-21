@@ -69,6 +69,8 @@ group :development do
   # gem "spring"
 
 
+  gem 'guard'
+
   # Guard::LiveReload automatically reloads your browser when 'view' files are modified.
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
 

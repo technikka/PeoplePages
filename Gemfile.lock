@@ -276,6 +276,7 @@ DEPENDENCIES
   bootsnap
   capybara
   devise (~> 4.8, >= 4.8.1)
+  guard
   guard-livereload (~> 2.5, >= 2.5.2)
   importmap-rails
   jbuilder
