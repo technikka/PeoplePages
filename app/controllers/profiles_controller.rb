@@ -1,15 +1,15 @@
 class ProfilesController < ApplicationController
   def new
-    @profile = Profile.new
+    @profile = current_user.build_profile
   end
 
   def create
     @profile = current_user.build_profile(profile_params)
 
     if @profile.save
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: 'Profile information saved'
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, alert: 'Problem saving profile information'
     end
   end
 

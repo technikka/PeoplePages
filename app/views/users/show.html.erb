@@ -1,9 +1,10 @@
 <nav>
   <% if current_user.profile.nil? %>
     <h3>Welcome to PeoplePages, <%= current_user.email %>!</h3>
-    <h4>Let's get started by creating your profile</h4>
-    
+    <h4>Let's get started with some information for your profile</h4>
+    <%= render 'profiles/form' %>
   <% else %>
-    <%= link_to "Edit Profile", edit_profile_path %>
+  <h3><%= current_user.profile.name %></h3>
+    <%= link_to "Edit Profile", edit_user_profile_path(current_user) %>
   <% end %>
 </nav>
