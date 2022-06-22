@@ -1,5 +1,5 @@
 <%= turbo_frame_tag 'profile_info' do %>
-  <%= form_with model: [@user, @profile] do |form| %>
+  <%= form_with model: [@user, @profile], method: :patch do |form| %>
     <%= render 'form', profile: @profile, user: @user, form: form %>
   <% end %>
 <% end %>

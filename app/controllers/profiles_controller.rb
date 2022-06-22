@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
     @user = current_user
     @profile = Profile.find_by(user_id: params[:user_id])
 
-    if @profile.update(profile_params)
+    if @profile.update(edited_profile_params)
       redirect_to user_path(current_user), notice: 'Profile information updated'
     else
       render :new, status: :unprocessable_entity, alert: 'Problem updating profile information'
@@ -33,5 +33,9 @@ class ProfilesController < ApplicationController
 
   def profile_params
     params.permit(:name, :current_city, :hometown, :workplace, :websites, :social_links)
+  end
+
+  def edited_profile_params
+    params.require(:profile).permit(:name, :current_city, :hometown, :workplace, :websites, :social_links)
   end
 end
