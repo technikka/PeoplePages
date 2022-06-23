@@ -1,0 +1,14 @@
+<%= turbo_frame_tag 'query' do %>
+  <%= form_with url: '/search', method: :get do |form| %>
+    <%= form.text_field :query %>
+    <%= form.submit 'Search' %>
+  <% end %>
+
+  <div class="query-result">
+    <% if @queried_user %>
+      <%= link_to @queried_user.profile.name, user_path(@queried_user) %>
+    <% else %>
+      <p>Friend not found. Try another search term.</p>
+    <% end %>
+  </div>
+<% end %>

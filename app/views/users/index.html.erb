@@ -1,5 +1,15 @@
 <h4>Find old friends or make new ones</h4>
 
+<div class="user-search">
+  <p>Find friends by email or name</p>
+  <%= turbo_frame_tag 'query' do %>
+    <%= form_with url: '/search', method: :get do |form| %>
+      <%= form.text_field :query %>
+      <%= form.submit 'Search' %>
+    <% end %>
+  <% end %>
+</div>
+
 <% @users.each do |user| %>
   <div>
   <%# user.profile.photo %>

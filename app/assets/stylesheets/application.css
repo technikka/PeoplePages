@@ -21,3 +21,8 @@
  .alert {
   color: red;
  }
+
+ .query-result {
+  background: #88f2a4;
+  margin-bottom: 10px;
+ }
