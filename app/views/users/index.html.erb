@@ -1,7 +1,7 @@
-<h4>Find old friends or make new ones</h4>
+<h3>Find old friends or make new ones!</h3>
+<h4>Search below by name or email or browse all PeoplePages users.</h4>
 
 <div class="user-search">
-  <p>Find friends by email or name</p>
   <%= turbo_frame_tag 'query' do %>
     <%= form_with url: '/search', method: :get do |form| %>
       <%= form.text_field :query %>
