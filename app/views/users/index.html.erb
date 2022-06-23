@@ -1,0 +1,8 @@
+<h4>Find old friends or make new ones</h4>
+
+<% @users.each do |user| %>
+  <div>
+  <%# user.profile.photo %>
+    <%= link_to user.profile.name, user_path(user)  %>
+  </div>
+<% end %>

@@ -9,9 +9,18 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+
     <nav>
       <% if user_signed_in?  %>
-        <%= link_to "Sign Out", destroy_user_session_path %>
+        <div>
+          <%= link_to "My Profile", user_profile_path(current_user) %>
+        </div>
+        <div>
+          <%= link_to "Find Friends", users_path %>
+        </div>
+        <div>
+          <%= link_to "Sign Out", destroy_user_session_path %>
+        </div>
       <% end %>
     </nav>
 

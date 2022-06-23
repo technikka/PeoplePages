@@ -1,4 +1,8 @@
-<% if current_user.profile.nil? %>
+<nav class="profile-nav">
+  <p>[ Tabs for friends, posts, etc. go here, or somewhere ]</p>
+</nav>
+
+<% if current_user.id == @user.id && current_user.profile.nil? %>
 
   <h3>Welcome to PeoplePages, <%= current_user.email%>!</h3>
   <h4>Let's get started with some information for your profile</h4>
@@ -8,7 +12,5 @@
   <% end %>
 
 <% else %>
-
-  <h3><%= current_user.profile.name %></h3>
   <%= render 'profiles/info' %>
 <% end %>
