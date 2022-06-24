@@ -2,6 +2,10 @@
   <p>[ Tabs for friends, posts, etc. go here, or somewhere ]</p>
 </nav>
 
+<div class="notifications">
+  
+</div>
+
 <%# New User looking at their own page: %>
 <% if current_user.id == @user.id && current_user.profile.nil? %>
   <h3>Welcome to PeoplePages, <%= current_user.email%>!</h3>
