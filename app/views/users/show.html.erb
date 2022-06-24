@@ -2,15 +2,23 @@
   <p>[ Tabs for friends, posts, etc. go here, or somewhere ]</p>
 </nav>
 
+<%# New User looking at their own page: %>
 <% if current_user.id == @user.id && current_user.profile.nil? %>
-
   <h3>Welcome to PeoplePages, <%= current_user.email%>!</h3>
   <h4>Let's get started with some information for your profile</h4>
-  
   <%= form_with model: @profile do |form| %>
     <%= render 'profiles/form', profile: @profile, form: form %>
   <% end %>
 
 <% else %>
   <%= render 'profiles/info' %>
+<% end %>
+
+<%# User looking at another user's page %>
+<% if current_user != @user %>
+  <% if current_user.requested_friend?(@user) %>
+    <strong><p>Friend Requested</p></strong>
+  <% else %>
+    <%= link_to "Add Friend", user_friendships_path(@user) %>
+  <% end %>
 <% end %>
