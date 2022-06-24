@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[show index] do
     get 'search', on: :collection
     resource :profile, only: %i[new create edit update]
-    resources :friendships, only: %i[new create]
+    resources :friendships, only: %i[new create destroy]
   end
 
   get 'search', to: 'users#search'
