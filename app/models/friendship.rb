@@ -11,11 +11,10 @@ class Friendship < ApplicationRecord
   private
 
   def create_notification
-    Notification.create(kind: 'friend_request', user_id: self.friend_id)
+    Notification.create(kind: 'friend_request', user_id: self.friend_id, friend_id: self.user_id)
   end
 
   def destroy_notification
-    Notification.find_by(user_id: self.friend_id, kind: 'friend_request').destroy
+    Notification.find_by(user_id: self.friend_id, kind: 'friend_request', friend_id: self.user_id).destroy
   end
-
 end

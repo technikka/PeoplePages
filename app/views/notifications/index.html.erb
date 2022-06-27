@@ -4,7 +4,7 @@
       <h4>Friend Requests</h4>
       <% @friend_requests.each do |r| %>
         <div>
-          <%= User.find(r.user_id).profile.name  %>
+          <%= User.find(r.friend_id).profile.name  %>
         </div>
       <% end %>
       <%# elsif (whatever other notifications)  %>
