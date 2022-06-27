@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resource :profile, only: %i[new create edit update]
     resources :friendships, only: %i[new create destroy]
   end
+  resources :notifications, only: %i[index]
 
   get 'search', to: 'users#search'
   post 'users/:id', to: 'profiles#create'
