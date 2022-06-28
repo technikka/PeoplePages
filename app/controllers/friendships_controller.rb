@@ -14,12 +14,17 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:id]) if params[:id]
     @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
 
-    render partial: 'cancel_request' unless params[:type] == 'accept_request'
+    if params[:type] == 'accept_request'
+      render 'notifications/index' 
+    else
+      render partial: 'cancel_request'
+    end
   end
 
   def destroy
     if params[:type] == 'deny_request'
       Friendship.find(params[:id]).destroy
+      render 'notifications/index'
     else
       # @user necessary when cancelling a request
       @user = User.find(params[:id]) if params[:id]

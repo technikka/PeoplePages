@@ -1,20 +1,14 @@
-<% if @notifications %>
-  <% @notifications.each do |n| %>
-    <% if @friend_requests %>
-      <h4>Friend Requests</h4>
-      <% @friend_requests.each do |r| %>
-        <div>
-          <% requester = User.find(r.friend_id) %>
-          <%= requester.profile.name %>
+<h4>Friend Requests</h4>
 
-           <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request)  %>
-
-          <%= link_to "Deny Request", user_friendship_path(current_user, @friendships.select { |f| f.user_id == requester.id }, type: :deny_request), data: { turbo_method: :delete } %>
-        </div>
-      <% end %>
-      <%# elsif (whatever other notifications)  %>
-    <% end %>
+<% if @friend_requests && !@friend_requests.empty? %>
+  <% @friend_requests.each do |request| %>
+    <div>
+      <% requester = User.find(request.user_id) %>
+      <%= requester.profile.name %>
+       <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request) %>
+      <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
+    </div>
   <% end %>
 <% else %>
-  <h3>Nothing to see here. Check back later.</h3>
+  <h5>Nothing to see here. Check back later.</h5>
 <% end %>
