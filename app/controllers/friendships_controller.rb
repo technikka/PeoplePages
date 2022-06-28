@@ -1,4 +1,8 @@
 class FriendshipsController < ApplicationController
+  # instantiating a friendship creates a one way relationship (a friend request)
+  # when a user accepts a friend request a new friendship record is created
+  # a mutual relationship (to be a 'friend') is considered when these two records coexist.
+
   def new
     @friendship = Friendship.new(user_id: current_user.id, friend_id: params[:user_id])
 
@@ -6,19 +10,23 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:id])
-    @friendship = Friendship.new(user_id: current_user.id, friend_id: @user.id)
+    # @user necessary when initiating a request
+    @user = User.find(params[:id]) if params[:id]
+    @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
 
-    if @friendship.save
-      render partial: 'cancel_request'
-    else
-      redirect_to @user, alert: 'Something went wrong requesting friend'
-    end
+    render partial: 'cancel_request' unless params[:type] == 'accept_request'
   end
 
   def destroy
-    @user = User.find(params[:id])
-    Friendship.find_by(user_id: current_user.id, friend_id: @user.id).destroy
-    render partial: 'initiate_request'
+    if params[:type] == 'deny_request'
+      Friendship.find(params[:id]).destroy
+    else
+      # @user necessary when cancelling a request
+      @user = User.find(params[:id]) if params[:id]
+
+      @friendship = Friendship.find_by(user_id: current_user.id, friend_id: @user.id)
+      @friendship.destroy
+      render partial: 'initiate_request'
+    end
   end
 end

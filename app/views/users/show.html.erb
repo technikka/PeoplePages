@@ -20,6 +20,9 @@
 
 <%# User looking at another user's page %>
 <% if current_user != @user %>
+
+    <%# looking at a friends page %>
+    
     <% if current_user.requested_friend?(@user) %>
       <%= render 'friendships/cancel_request' %>
     <% else %>

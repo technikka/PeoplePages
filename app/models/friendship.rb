@@ -1,20 +1,11 @@
 class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
+  has_one :notification, dependent: :destroy
 
   validates :user_id, presence: true, uniqueness: true
   validates :friend_id, presence: true
 
-  after_save :create_notification
-  after_destroy :destroy_notification
-
-  private
-
-  def create_notification
-    Notification.create(kind: 'friend_request', user_id: self.friend_id, friend_id: self.user_id)
-  end
-
-  def destroy_notification
-    Notification.find_by(user_id: self.friend_id, kind: 'friend_request', friend_id: self.user_id).destroy
-  end
+  after_create { create_notification }
+  before_destroy { notification.destroy }
 end

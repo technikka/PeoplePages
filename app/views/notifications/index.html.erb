@@ -4,7 +4,12 @@
       <h4>Friend Requests</h4>
       <% @friend_requests.each do |r| %>
         <div>
-          <%= User.find(r.friend_id).profile.name  %>
+          <% requester = User.find(r.friend_id) %>
+          <%= requester.profile.name %>
+
+           <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request)  %>
+
+          <%= link_to "Deny Request", user_friendship_path(current_user, @friendships.select { |f| f.user_id == requester.id }, type: :deny_request), data: { turbo_method: :delete } %>
         </div>
       <% end %>
       <%# elsif (whatever other notifications)  %>
