@@ -10,13 +10,13 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    # @user necessary when initiating a request
-    @user = User.find(params[:id]) if params[:id]
-    @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
-
     if params[:type] == 'accept_request'
-      render 'notifications/index' 
+      @user = User.find(params[:requester])
+      @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
+      render 'notifications/index'
     else
+      @user = User.find(params[:id])
+      @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
       render partial: 'cancel_request'
     end
   end

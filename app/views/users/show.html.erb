@@ -2,10 +2,6 @@
   <p>[ Tabs for friends, posts, etc. go here, or somewhere ]</p>
 </nav>
 
-<div class="notifications">
-  
-</div>
-
 <%# New User looking at their own page: %>
 <% if current_user.id == @user.id && current_user.profile.nil? %>
   <h3>Welcome to PeoplePages, <%= current_user.email%>!</h3>
@@ -20,12 +16,12 @@
 
 <%# User looking at another user's page %>
 <% if current_user != @user %>
-
+  <% if current_user.active_friends.include?(@user) %>
+    <p>You are friends!</p>
     <%# looking at a friends page %>
-    
-    <% if current_user.requested_friend?(@user) %>
-      <%= render 'friendships/cancel_request' %>
-    <% else %>
-      <%= render 'friendships/initiate_request' %>
-    <% end %>
+  <% elsif current_user.pending_friends.include?(@user) %>
+    <%= render 'friendships/cancel_request' %>
+  <% else %>
+    <%= render 'friendships/initiate_request' %>
+  <% end %>
 <% end %>
