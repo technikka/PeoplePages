@@ -1,7 +1,12 @@
 class FriendshipsController < ApplicationController
   # instantiating a friendship creates a one way relationship (a friend request)
-  # when a user accepts a friend request a new friendship record is created
+  # when a user accepts a friend request a new friendship record is created.
   # a mutual relationship (to be a 'friend') is considered when these two records coexist.
+
+  def index
+    @active_friends = current_user.active_friends
+    @pending_friends = current_user.pending_friends
+  end
 
   def new
     @friendship = Friendship.new(user_id: current_user.id, friend_id: params[:user_id])
@@ -11,12 +16,12 @@ class FriendshipsController < ApplicationController
 
   def create
     if params[:type] == 'accept_request'
-      @user = User.find(params[:requester])
-      @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
+      @friend = User.find(params[:requester])
+      @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
       render 'notifications/index'
     else
-      @user = User.find(params[:id])
-      @friendship = Friendship.create(user_id: current_user.id, friend_id: @user.id)
+      @friend = User.find(params[:id] || params[:user_id])
+      @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
       render partial: 'cancel_request'
     end
   end
@@ -26,11 +31,8 @@ class FriendshipsController < ApplicationController
       Friendship.find(params[:id]).destroy
       render 'notifications/index'
     else
-      # @user necessary when cancelling a request
-      @user = User.find(params[:id]) if params[:id]
-
-      @friendship = Friendship.find_by(user_id: current_user.id, friend_id: @user.id)
-      @friendship.destroy
+      @friend = User.find(params[:user_id]) if params[:user_id]
+      Friendship.find(params[:id]).destroy
       render partial: 'initiate_request'
     end
   end

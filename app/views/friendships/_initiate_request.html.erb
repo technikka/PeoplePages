@@ -1,3 +1,4 @@
 <%= turbo_frame_tag 'friend_request' do %>
-  <%= link_to "Add Friend", user_friendships_path(@user) %>
+  <% requester = @friend || friend %>
+  <%= link_to "Add Friend", user_friendships_path(requester), data: { turbo_method: :post } %>
 <% end %>

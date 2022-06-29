@@ -1,0 +1,15 @@
+<h4>Your Friends:</h4>
+<% @active_friends.each do |friend| %>
+  <div>
+    <%= link_to friend.profile.name, user_path(friend) %>
+  </div>
+<% end %>
+
+<h4>Your Pending Requests</h4>
+<% @pending_friends.each do |friend| %>
+  <div>
+    <%= link_to friend.profile.name, user_path(friend) %>
+  </div>
+<% end %>
+
+<h4>Waiting for your approval</h4>

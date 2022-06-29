@@ -10,24 +10,31 @@
     <%= javascript_importmap_tags %>
   </head>
 
-    <nav>
-      <% if user_signed_in?  %>
-        <div>
-          <%= link_to "My Profile", user_profile_path(current_user) %>
-        </div>
-        <div>
-          <%= link_to "Find Friends", users_path %>
-        </div>
-        <div>
-          <%= link_to "Sign Out", destroy_user_session_path %>
-        </div>
-        <div>
-          <%= link_to "Notifications", notifications_path %>
-        </div>
-      <% end %>
-    </nav>
-
   <body>
+    <% if user_signed_in?  %>
+    <nav>
+      <div>
+        <%= link_to "My Profile", user_profile_path(current_user) %>
+      </div>
+      <div>
+        <%= link_to "Find Friends", users_path %>
+      </div>
+      <div>
+        <%= link_to "Sign Out", destroy_user_session_path %>
+      </div>
+      <div>
+        <%= link_to "Notifications", notifications_path %>
+      </div>
+    </nav>
+  <%# ATTENTION: Don't forget to take this break out when styling! %>
+    <br>
+    <nav class="profile-nav">
+      <div>
+        <%= link_to "Friends", user_friendships_path(current_user) %>
+      </div>
+    </nav>
+    <% end %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
