@@ -30,9 +30,14 @@ class FriendshipsController < ApplicationController
     if params[:type] == 'deny_request'
       Friendship.find(params[:id]).destroy
       redirect_to request.referrer
+    elsif params[:type] == 'unfriend'
+      @user_friendship = Friendship.find(params[:id])
+      @friend_friendship = Friendship.find_by(user_id: params[:friend], friend_id: current_user.id)
+      @user_friendship.destroy
+      @friend_friendship.destroy
+      redirect_to request.referrer
     else
       @friend = User.find(params[:user_id]) if params[:user_id]
-      binding.pry
       Friendship.find(params[:id]).destroy
       render partial: 'initiate_request'
     end

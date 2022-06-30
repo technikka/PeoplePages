@@ -5,14 +5,15 @@
   <%= form_with model: @profile do |form| %>
     <%= render 'profiles/form', profile: @profile, form: form %>
   <% end %>
-
 <% else %>
   <%= render 'profiles/info' %>
 <% end %>
 
+
 <% if current_user != @user %>
+  <%# current_user looking at a friends page %>
   <% if current_user.active_friends.include?(@user) %>
-    <p>You are friends!</p>
+    <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete } %>
 
   <%# current_user looking at a user who has requested friendship %>
   <% elsif User.notifications(current_user).any? { |n| n.kind_of?(Friendship) && n.user_id == @user.id } %>

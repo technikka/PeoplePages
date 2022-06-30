@@ -17,7 +17,7 @@ class Friendship < ApplicationRecord
     end
   end
 
-  before_destroy { notification.destroy }
+  before_destroy { notification.destroy if notification }
 
   private
 
