@@ -18,7 +18,7 @@ class FriendshipsController < ApplicationController
     if params[:type] == 'accept_request'
       @friend = User.find(params[:requester])
       @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
-      render 'notifications/index'
+      redirect_to request.referrer
     else
       @friend = User.find(params[:id] || params[:user_id])
       @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
@@ -29,7 +29,7 @@ class FriendshipsController < ApplicationController
   def destroy
     if params[:type] == 'deny_request'
       Friendship.find(params[:id]).destroy
-      render 'notifications/index'
+      redirect_to request.referrer
     else
       @friend = User.find(params[:user_id]) if params[:user_id]
       Friendship.find(params[:id]).destroy

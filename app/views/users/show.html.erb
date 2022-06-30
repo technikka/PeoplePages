@@ -10,13 +10,20 @@
   <%= render 'profiles/info' %>
 <% end %>
 
-<%# User looking at another user's page %>
 <% if current_user != @user %>
   <% if current_user.active_friends.include?(@user) %>
     <p>You are friends!</p>
-    <%# looking at a friends page %>
+
+  <%# current_user looking at a user who has requested friendship %>
+  <% elsif User.notifications(current_user).any? { |n| n.kind_of?(Friendship) && n.friend_id == current_user.id } %>
+    <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
+    <%= link_to "Deny Request", user_friendship_path(current_user,@user.id, type: :deny_request), data: { turbo_method: :delete } %>
+
+  <%# current_user looking at user they've requested friendship %>
   <% elsif current_user.pending_friends.include?(@user) %>
     <%= render 'friendships/cancel_request', friend: @user %>
+    
+  <%# current_user looking at another users page %>
   <% else %>
     <%= render 'friendships/initiate_request', friend: @user %>
   <% end %>

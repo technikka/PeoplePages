@@ -3,8 +3,8 @@ class Friendship < ApplicationRecord
   belongs_to :friend, class_name: 'User'
   has_one :notification, dependent: :destroy
 
-  validates :user_id, presence: true
-  validates :friend_id, presence: true
+  validates :user_id, presence: true, uniqueness: { scope: :friend_id, message: 'identical record exists' }
+  validates :friend_id, presence: true, uniqueness: { scope: :user_id, message: 'identical record exists' }
 
   after_create do
     if mutual_relationship?
