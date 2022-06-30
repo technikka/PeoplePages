@@ -32,6 +32,7 @@ class FriendshipsController < ApplicationController
       redirect_to request.referrer
     else
       @friend = User.find(params[:user_id]) if params[:user_id]
+      binding.pry
       Friendship.find(params[:id]).destroy
       render partial: 'initiate_request'
     end
