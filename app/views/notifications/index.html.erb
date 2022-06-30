@@ -5,7 +5,7 @@
     <div>
       <% requester = User.find(request.user_id) %>
       <%= requester.profile.name %>
-       <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester, data: { turbo_method: :post }) %>
+       <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester), data: { turbo_method: :post } %>
       <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
     </div>
   <% end %>

@@ -6,13 +6,8 @@ class User < ApplicationRecord
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 
-  # def requested_friend?(user)
-  #   friendships.any? { |f| f.friend_id == user.id }
-  # end
-
   def self.notifications(user)
-    Friendship.joins('INNER JOIN notifications ON notifications.friendship_id = friendships.id')
-              .select { |f| f.friend_id = user.id }
+    Friendship.joins(:notification).where(friend_id: user.id)
   end
 
   def active_friends
