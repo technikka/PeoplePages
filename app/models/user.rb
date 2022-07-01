@@ -11,10 +11,10 @@ class User < ApplicationRecord
   end
 
   def active_friends
-    friends.select { |f| f.friends.include?(self) }
+    friends.includes(:friends, :profile).select { |f| f.friends.include?(self) }
   end
 
   def pending_friends
-    friends.reject { |f| f.friends.include?(self) }
+    friends.includes(:friends, :profile).reject { |f| f.friends.include?(self) }
   end
 end
