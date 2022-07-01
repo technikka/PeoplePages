@@ -18,11 +18,13 @@
 <% @requests = User.notifications(current_user).select { |n| n.kind_of?(Friendship) && n.friend == current_user } %>
 <% if !@requests.empty? %>
   <% @requests.each do |request| %>
-    <% requester = request.user %>
-    <div>
-      <%= link_to requester.profile.name, user_path(requester) %>
-      <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester.id), data: { turbo_method: :post } %>
-      <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request),  data: { turbo_method: :delete } %>
-    </div>
+    <%= turbo_frame_tag 'accept_request' do %>
+      <% requester = request.user %>
+      <div>
+        <%= link_to requester.profile.name, user_path(requester) %>
+        <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester.id), data: { turbo_method: :post } %>
+        <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request),  data: { turbo_method: :delete } %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

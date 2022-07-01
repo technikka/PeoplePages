@@ -1,0 +1,6 @@
+<%= turbo_frame_tag 'accept_request' do %> 
+  <div>
+    <p>You and 
+    <%= link_to @friend.profile.name, user_path(@friend), data: { turbo_frame: '_top' } %> are now friends!</p>
+  </div>
+<% end %>

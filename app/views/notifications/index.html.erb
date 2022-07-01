@@ -3,10 +3,12 @@
 <% if @friend_requests && !@friend_requests.empty? %>
   <% @friend_requests.each do |request| %>
     <div>
-      <% requester = User.find(request.user_id) %>
-      <%= link_to requester.profile.name, user_path(requester) %>
-       <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester), data: { turbo_method: :post } %>
-      <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
+      <%= turbo_frame_tag 'accept_request' do %>
+        <% requester = User.find(request.user_id) %>
+        <%= link_to requester.profile.name, user_path(requester) %>
+         <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester), data: { turbo_method: :post } %>
+        <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
+      <% end %>
     </div>
   <% end %>
 <% else %>
