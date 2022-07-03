@@ -1,5 +1,6 @@
 <%= render 'new' %>
 
+<%# @posts contains only those of current_user.active_friends %>
 <% @posts.each do |post| %>
   <div>
     <strong><%= post.user.profile.name  %></strong>

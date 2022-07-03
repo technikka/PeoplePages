@@ -12,7 +12,7 @@ class User < ApplicationRecord
   end
 
   def active_friends
-    friends.includes(:friends, :profile).select { |f| f.friends.include?(self) }
+    friends.includes(:friends, :profile, :posts).select { |f| f.friends.include?(self) }
   end
 
   def pending_friends
