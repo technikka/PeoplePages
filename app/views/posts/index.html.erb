@@ -1,0 +1,9 @@
+<%= render 'new' %>
+
+<% @posts.each do |post| %>
+  <div>
+    <strong><%= post.user.profile.name  %></strong>
+    <%= post.created_at.strftime('%B %e at %l:%M%P') %>
+    <%= post.body %>
+  </div>
+<% end %>

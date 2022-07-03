@@ -5,12 +5,14 @@ Rails.application.routes.draw do
     resource :profile, only: %i[new create edit update]
     resources :friendships, only: %i[index new create destroy]
   end
+
   resources :notifications, only: %i[index]
+  resources :posts
 
   get 'search', to: 'users#search'
   post 'users/:id', to: 'profiles#create'
   get 'users/:id/profile', to: 'users#show'
   post 'users/:id/friendships', to: 'friendships#create'
 
-  root 'users#show'
+  root 'posts#index'
 end

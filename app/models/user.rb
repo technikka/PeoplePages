@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
+  has_many :posts
 
   def self.notifications(user)
     Friendship.joins(:notification).where(friend_id: user.id)
