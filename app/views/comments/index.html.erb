@@ -1,0 +1,5 @@
+<% @comments.each do |comment| %>
+  <%= comment.user.profile.name %>
+  <%= comment.body  %>
+  <br>
+<% end %>

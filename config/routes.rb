@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :notifications, only: %i[index]
   resources :posts
+  resources :comments, except: %i[show new]
 
   get 'search', to: 'users#search'
   post 'users/:id', to: 'profiles#create'

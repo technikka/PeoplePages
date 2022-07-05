@@ -1,10 +1,23 @@
+<%# render the new post frame %>
 <%= render 'new' %>
 
 <%# @posts contains only those of current_user.active_friends %>
 <% @posts.each do |post| %>
-  <div>
-    <strong><%= post.user.profile.name  %></strong>
-    <%= post.created_at.strftime('%B %e at %l:%M%P') %>
-    <%= post.body %>
+  <div class="post-container">
+    <div class="post">
+      <strong><%= post.user.profile.name  %></strong>
+      <%= post.created_at.strftime('%B %e at %l:%M%P') %>
+      <%= post.body %>
+    </div>
+
+    <%= render 'comments/preview', post: post %>
+
+    <div class="comment">
+      <%= form_with model: Comment do |form| %>
+        <%= form.text_area :body, size: '60X10',placeholder: 'Leave a comment' %>
+        <%= form.hidden_field :post_id, value: post.id %>
+        <%= form.submit 'Add' %>
+      <% end %>
+    </div>
   </div>
 <% end %>
