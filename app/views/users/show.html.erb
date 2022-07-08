@@ -29,3 +29,7 @@
     <%= render 'friendships/initiate_request', friend: @user %>
   <% end %>
 <% end %>
+
+<% @user.posts.each do |post| %>
+  <%= render 'posts/post', post: post %>
+<% end %>

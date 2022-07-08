@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.turbo_stream
       else
-        format.html { render posts_path, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity }
       end
     end
   end
