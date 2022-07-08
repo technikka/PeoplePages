@@ -1,3 +1,3 @@
-<%= turbo_stream.replace 'preview_comments' do %>
+<%= turbo_stream.update "post_#{@post.id}" do %>
   <%= render partial: 'preview', locals: { post: @post} %>
 <% end %>

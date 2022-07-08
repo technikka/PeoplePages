@@ -1,6 +1,5 @@
 
-<% @last_three = [post.comments[-3], post.comments[-2],  post.comments[-1]] %>
-<%= turbo_frame_tag 'preview_comments' do %>
+  <% @last_three = [post.comments[-3], post.comments[-2],  post.comments[-1]] %>
   <% @last_three.each do |comment| %>
     <ul>
       <% if comment %>
@@ -11,4 +10,4 @@
       <% end %>
     </ul>
   <% end %>
-<% end %>
+
