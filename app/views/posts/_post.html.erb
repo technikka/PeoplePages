@@ -10,6 +10,12 @@
     <%= render 'comments/preview', post: post %>
   <% end %>
 
+  <% @num_comments = post.comments.size %>
+  <% if @num_comments > 3 %>
+    <span><%= post.comments.size - 3 %> more comments. </span>
+  <% end %>
+  <span><%= link_to "View Post", post_path(post.id)%></span>
+
   <div class="comment">
     <%= form_with model: Comment,
                   data: { controller: 'input', action: 'turbo:submit-end->input#clear' } do |form| %>
@@ -17,9 +23,5 @@
       <%= form.hidden_field :post_id, value: post.id %>
       <%= form.submit 'Add' %>
     <% end %>
-  </div>
-
-  <div>
-    <%= link_to "View Post", post_path(post.id)%>
   </div>
 </div>

@@ -1,8 +1,13 @@
 <ul>
   <% if comment %>
-    <li>
-      <%= comment.body %>
-      <%= comment.user.profile.name %>
-    </li>
+    <div id="<%= "comment_#{comment.id}" %>">
+      <li>
+        <%= comment.body %>
+        <%= comment.user.profile.name %>
+      </li>
+      <% if comment.user == current_user %>
+        <%= link_to "delete", comment_path(comment.id), data: { turbo_method: :delete }  %>
+      <% end %>
+    </div>
   <% end %>
 </ul>

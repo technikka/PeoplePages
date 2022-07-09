@@ -5,8 +5,10 @@
 <%= @post.created_at.strftime('%B %e at %l:%M%P') %>
 <%= @post.body %>
 
+<div><%= @post.comments.size %> comments</div>
+
 <%= turbo_frame_tag 'comment' do %>
-  <% @post.comments.each do |comment| %>
+  <% @post.comments.includes(:user).each do |comment| %>
     <%= render partial: 'comments/comment', locals: {   comment: comment } %>
   <% end %>
 <% end %>
