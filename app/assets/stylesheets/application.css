@@ -23,6 +23,12 @@
  }
 
  .query-result {
-  background: #a9f5be;
+  background: #e6f5ea;
   margin-bottom: 10px;
+ }
+
+ .post-container {
+   background: #e6f5ea;
+   margin: 20px;
+   padding: 10px;
  }

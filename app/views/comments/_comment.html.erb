@@ -1,0 +1,8 @@
+<ul>
+  <% if comment %>
+    <li>
+      <%= comment.body %>
+      <%= comment.user.profile.name %>
+    </li>
+  <% end %>
+</ul>

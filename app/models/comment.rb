@@ -4,4 +4,6 @@ class Comment < ApplicationRecord
   validates :post_id, presence: true
   validates :user_id, presence: true
   validates :body, length: { in: 2..1_000 }
+
+  default_scope { order(created_at: :ASC) }
 end

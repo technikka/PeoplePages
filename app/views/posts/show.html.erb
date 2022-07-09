@@ -1,0 +1,21 @@
+<% @author = @post.user %>
+<strong>
+  <%= link_to "#{@author.profile.name}", user_path(@author.id)  %>
+</strong>
+<%= @post.created_at.strftime('%B %e at %l:%M%P') %>
+<%= @post.body %>
+
+<%= turbo_frame_tag 'comment' do %>
+  <% @post.comments.each do |comment| %>
+    <%= render partial: 'comments/comment', locals: {   comment: comment } %>
+  <% end %>
+<% end %>
+
+<div class="comment">
+  <%= form_with model: Comment,
+                  data: { controller: 'input', action: 'turbo:submit-end->input#clear' } do |form| %>
+    <%= form.text_area :body, size: '60X10', placeholder: 'Leave a comment' %>
+    <%= form.hidden_field :post_id, value: @post.id %>
+    <%= form.submit 'Add' %>
+  <% end %>
+</div>

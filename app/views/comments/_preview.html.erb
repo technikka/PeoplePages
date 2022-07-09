@@ -1,13 +1,10 @@
-
-  <% @last_three = [post.comments[-3], post.comments[-2],  post.comments[-1]] %>
-  <% @last_three.each do |comment| %>
-    <ul>
-      <% if comment %>
-        <li>
-          <%= comment.body %>
-          <%= comment.user.profile.name %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
+<% post.comments.last(3).each do |comment| %>
+  <ul>
+    <% if comment %>
+      <li>
+        <%= comment.body %>
+        <%= comment.user.profile.name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

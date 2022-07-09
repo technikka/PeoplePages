@@ -1,3 +1,9 @@
-<%= turbo_stream.update "post_#{@post.id}" do %>
-  <%= render partial: 'preview', locals: { post: @post} %>
+<% if Rails.application.routes.recognize_path(URI(request.referer).path).include?(:id) %>
+  <%= turbo_stream.append 'comment' do %>
+      <%= render partial: 'comment', locals: { comment: @comment } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "post_#{@post.id}" do %>
+    <%= render partial: 'preview', locals: { post: @post} %>
+  <% end %>
 <% end %>
