@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   def index
     ids = current_user.active_friends.map(&:id)
+    ids << current_user.id
     @posts = Post.where(user_id: [ids])
   end
 
@@ -30,8 +31,10 @@ class PostsController < ApplicationController
 
   end
 
-  def delete
-    
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to posts_path, status: 303, notice: 'Post sucessfully deleted'
   end
 
   private

@@ -7,6 +7,10 @@
 
 <div><%= @post.comments.size %> comments</div>
 
+<% if current_user == @post.user %>
+  <%= link_to "Delete Post", post_path(@post.id), data: {turbo_method: :delete}  %>
+<% end %>
+
 <%= turbo_frame_tag 'comment' do %>
   <% @post.comments.includes(:user).each do |comment| %>
     <%= render partial: 'comments/comment', locals: {   comment: comment } %>
