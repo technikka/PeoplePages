@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   def index
     ids = current_user.active_friends.map(&:id)
     ids << current_user.id
-    @posts = Post.where(user_id: [ids])
+    # friend_id indicates a personal post (not for timeline)
+    @posts = Post.where(user_id: [ids], friend_id: nil)
   end
 
   def show
@@ -16,7 +17,9 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    if @post.save
+    if @post.friend_id && @post.save
+      redirect_to request.referer
+    elsif @post.save
       redirect_to posts_path
     else
       render partial: 'new', status: :unprocessable_entity
@@ -45,6 +48,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body)
+    params.require(:post).permit(:body, :friend_id)
   end
 end

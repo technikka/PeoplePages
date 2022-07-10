@@ -1,0 +1,5 @@
+<%= form_with model: Post do |form| %>
+    <%= form.text_area :body, size: '60X20',  placeholder: "Say something to #{friend.profile.name.split[0]}" %>
+    <%= form.hidden_field :friend_id, value: friend.id %>
+    <%= form.submit 'Post' %>
+<% end %>
