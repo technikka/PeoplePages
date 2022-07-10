@@ -17,6 +17,10 @@
 
     <%= render partial: 'posts/friend', locals: { friend: @user } %>
 
+    <% Post.user_fitted(@user).each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+
   <%# current_user looking at a user who has requested friendship %>
   <% elsif User.notifications(current_user).any? { |n| n.kind_of?(Friendship) && n.user_id == @user.id } %>
     <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
@@ -30,8 +34,4 @@
   <% else %>
     <%= render 'friendships/initiate_request', friend: @user %>
   <% end %>
-<% end %>
-
-<% Post.user_fitted(@user).each do |post| %>
-  <%= render 'posts/post', post: post %>
 <% end %>

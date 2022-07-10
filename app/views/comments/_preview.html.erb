@@ -1,4 +1,4 @@
-<% post.comments.last(3).each do |comment| %>
+<% post.comments.includes(:user).last(3).each do |comment| %>
   <ul>
     <% if comment %>
       <li>

@@ -8,6 +8,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  before_destroy do
+    posts_from_friends = Post.where(friend_id: id)
+    posts_from_friends.destroy_all
+  end
+
   def self.notifications(user)
     Friendship.joins(:notification).where(friend_id: user.id)
   end

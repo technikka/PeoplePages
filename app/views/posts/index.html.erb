@@ -2,6 +2,6 @@
 <%= render 'new' %>
 
 <%# @posts contains only those of current_user.active_friends %>
-<% @posts.each do |post| %>
+<% @posts.includes(:user, :comments).each do |post| %>
   <%= render 'post', post: post %>
 <% end %>
