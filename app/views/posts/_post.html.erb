@@ -1,9 +1,15 @@
 <div class="post-container">
+  
   <div class="post">
     <% @author = post.user %>
-    <strong><%= link_to "#{@author.profile.name}", user_path(@author.id)  %></strong>
+    <strong><%= link_to "#{@author.profile.name}",user_path(@author.id)  %></strong>
     <%= post.created_at.strftime('%B %e at %l:%M%P') %>
     <%= post.body %>
+    <% if post.updated_at != post.created_at %>
+      <p>Updated:
+      <%= post.updated_at.strftime('%B %e at %l:%M%P') %>
+      </p>
+    <% end %>
   </div>
 
   <%= turbo_frame_tag "post_#{post.id}" do %>
@@ -14,7 +20,12 @@
   <% if @num_comments > 3 %>
     <span><%= post.comments.size - 3 %> more comments. </span>
   <% end %>
-  <span><%= link_to "View Post", post_path(post.id)%></span>
+
+  <% if @author == current_user %>
+    <span><%= link_to "View/Edit Post", post_path(post.id)%></span>
+  <% else %>
+    <span><%= link_to "View Post", post_path(post.id)%></span>
+  <% end %>
 
   <div class="comment">
     <%= form_with model: Comment,

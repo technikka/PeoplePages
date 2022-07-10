@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'post' do %>
+  <%= form_with model: @post, method: :patch do |form| %>
+    <%= form.text_area :body, size: '60X20' %>
+    <%= form.submit 'Update' %>
+    <%= link_to "Cancel", post_path(@post) %>
+  <% end %>
+<% end %>

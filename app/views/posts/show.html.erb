@@ -1,15 +1,23 @@
-<% @author = @post.user %>
-<strong>
-  <%= link_to "#{@author.profile.name}", user_path(@author.id)  %>
-</strong>
-<%= @post.created_at.strftime('%B %e at %l:%M%P') %>
-<%= @post.body %>
+<%= turbo_frame_tag 'post' do %>
+  <% @author = @post.user %>
+  <strong>
+    <%= link_to "#{@author.profile.name}", user_path(@author.id)  %>
+  </strong>
+  <%= @post.created_at.strftime('%B %e at %l:%M%P') %>
+  <% if @post.updated_at != @post.created_at %>
+    <p>Updated:
+    <%= @post.updated_at.strftime('%B %e at %l:%M%P') %>
+    </p>
+  <% end %>
+  <%= @post.body %>
+  
+  <% if current_user == @post.user %>
+    <%= link_to "Edit", edit_post_path(@post) %>
+    <%= link_to "Delete", post_path(@post.id), data: {turbo_confirm: 'Are you sure you want to delete this post and its comments?', turbo_method: :delete }  %>
+  <% end %>
+<% end %>
 
 <div><%= @post.comments.size %> comments</div>
-
-<% if current_user == @post.user %>
-  <%= link_to "Delete Post", post_path(@post.id), data: {turbo_method: :delete}  %>
-<% end %>
 
 <%= turbo_frame_tag 'comment' do %>
   <% @post.comments.includes(:user).each do |comment| %>
