@@ -1,0 +1,11 @@
+<div class="post">
+    <% author = post.user %>
+    <strong><%= link_to "#{author.profile.name}",user_path(author.id)  %></strong>
+    <%= post.created_at.strftime('%B %e at %l:%M%P') %>
+    <%= post.body %>
+    <% if post.updated_at != post.created_at %>
+      <p>Updated:
+      <%= post.updated_at.strftime('%B %e at %l:%M%P') %>
+      </p>
+    <% end %>
+  </div>

@@ -1,15 +1,7 @@
 <%= turbo_frame_tag 'post' do %>
-  <% @author = @post.user %>
-  <strong>
-    <%= link_to "#{@author.profile.name}", user_path(@author.id)  %>
-  </strong>
-  <%= @post.created_at.strftime('%B %e at %l:%M%P') %>
-  <% if @post.updated_at != @post.created_at %>
-    <p>Updated:
-    <%= @post.updated_at.strftime('%B %e at %l:%M%P') %>
-    </p>
-  <% end %>
-  <%= @post.body %>
+  <%= render partial: 'posts/content', locals: { post: @post} %>
+
+  <%= link_to "Like", likes_path(like_post: @post), data: { turbo_method: :post } %>
   
   <% if current_user == @post.user %>
     <%= link_to "Edit", edit_post_path(@post) %>
@@ -25,11 +17,4 @@
   <% end %>
 <% end %>
 
-<div class="comment">
-  <%= form_with model: Comment,
-                  data: { controller: 'input', action: 'turbo:submit-end->input#clear' } do |form| %>
-    <%= form.text_area :body, size: '60X10', placeholder: 'Leave a comment' %>
-    <%= form.hidden_field :post_id, value: @post.id %>
-    <%= form.submit 'Add' %>
-  <% end %>
-</div>
+<%= render partial: 'comments/form', locals: { post: @post } %>

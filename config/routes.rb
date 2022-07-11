@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :notifications, only: %i[index]
   resources :posts
   resources :comments, only: %i[index create destroy]
+  resources :likes, only: %i[index create destroy]
 
   get 'search', to: 'users#search'
   post 'users/:id', to: 'profiles#create'

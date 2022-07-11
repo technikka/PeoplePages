@@ -1,0 +1,8 @@
+<div class="comment">
+  <%= form_with model: Comment,
+                  data: { controller: 'input', action: 'turbo:submit-end->input#clear' } do |form| %>
+    <%= form.text_area :body, size: '60X10', placeholder: 'Leave a comment' %>
+    <%= form.hidden_field :post_id, value: post.id %>
+    <%= form.submit 'Add' %>
+  <% end %>
+</div>

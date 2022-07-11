@@ -3,5 +3,5 @@
 
 <%# @posts contains only those of current_user.active_friends %>
 <% @posts.includes(:user, :comments).each do |post| %>
-  <%= render 'post', post: post %>
+  <%= render partial: 'post', locals: { post: post } %>
 <% end %>

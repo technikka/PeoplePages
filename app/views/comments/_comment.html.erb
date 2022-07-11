@@ -3,7 +3,10 @@
     <div id="<%= "comment_#{comment.id}" %>">
       <li>
         <%= comment.body %>
-        <%= link_to comment.user.profile.name, user_path(comment.user) data: { turbo_frame: "_top" } %>
+        <%= link_to comment.user.profile.name, user_path(comment.user), data: { turbo_frame: "_top" } %>
+        <li>
+          <%= link_to "Like", likes_path(like_comment: comment), data: { turbo_method: :post } %>
+        </li>
       </li>
       <% if comment.user == current_user %>
         <%= link_to "delete", comment_path(comment.id), data: { turbo_method: :delete }  %>
