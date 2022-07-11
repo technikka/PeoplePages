@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   before_destroy do
     posts_from_friends = Post.where(friend_id: id)

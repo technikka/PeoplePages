@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
   validates :body, length: { in: 3..12_000 }
 
   default_scope { order(updated_at: :desc) }
