@@ -3,7 +3,7 @@
     <% if comment %>
       <li>
         <%= comment.body %>
-        <%= comment.user.profile.name %>
+        <%= link_to comment.user.profile.name, user_path(comment.user), data: { turbo_frame: "_top" } %>
       </li>
     <% end %>
   </ul>
