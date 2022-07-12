@@ -4,9 +4,14 @@
       <li>
         <%= comment.body %>
         <%= link_to comment.user.profile.name, user_path(comment.user), data: { turbo_frame: "_top" } %>
-        <li>
-          <%= link_to "Like", likes_path(like_comment: comment), data: { turbo_method: :post } %>
-        </li>
+
+        <%= turbo_frame_tag "like_#{post.id}" do %>
+          <% if comment.likes.any? { |like| like.user_id == current_user.id } %>
+            <%= render partial: 'likes/unlike', locals: {resource: comment } %>
+          <% else %>
+            <%= render partial: 'likes/like', locals: { resource: comment } %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

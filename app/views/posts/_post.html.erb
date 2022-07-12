@@ -1,8 +1,12 @@
 <div class="post-container">
   <%= render partial: 'posts/content', locals: { post: post } %>
 
-  <%= turbo_frame_tag 'like' do %>
-    <%= link_to "Like", likes_path(like_post: post), data: { turbo_method: :post } %>
+  <%= turbo_frame_tag "like_#{post.id}" do %>
+    <% if post.likes.any? { |like| like.user_id == current_user.id } %>
+      <%= render partial: 'likes/unlike', locals: {resource: post } %>
+    <% else %>
+      <%= render partial: 'likes/like', locals: { resource: post } %>
+    <% end %>
   <% end %>
 
   <%= turbo_frame_tag "post_#{post.id}" do %>

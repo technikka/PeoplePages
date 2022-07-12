@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "like_#{resource.id}" do %>
+  <% if resource.is_a?(Post) %>
+    <%= link_to "Like", likes_path(type: 'post', post: resource), data: { turbo_method: :post } %>
+  <% elsif resource.is_a?(Comment) %>
+    <%= link_to "Like", likes_path(type: 'comment', comment: resource), data: { turbo_method: :post } %>
+  <% end %>
+<% end %>

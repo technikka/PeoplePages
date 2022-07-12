@@ -3,13 +3,26 @@ class LikesController < ApplicationController
   def index; end
 
   def create
-    @post = params[:like_post] if params[:like_post]
-    @comment = params[:like_comment] if params[:like_comment]
+    @post = params[:post] if params[:type] == 'post'
+    @comment = params[:comment] if params[:type] == 'comment'
 
     foreign_key = { post_id: @post, comment_id: @comment }
     @like = current_user.likes.build(foreign_key)
-    binding.pry
+    @like.save!
+    resource = if @post
+                 Post.find(@post)
+               else
+                 Comment.find(@comment)
+               end
+    render partial: 'unlike', locals: { resource: resource }
   end
 
-  def destroy; end
+  def destroy
+    @like = Like.find(params[:id])
+    @post = @like.post
+    @comment = @like.comment
+    resource = @post || @comment
+    @like.destroy
+    render partial: 'like', locals: { resource: resource }
+  end
 end

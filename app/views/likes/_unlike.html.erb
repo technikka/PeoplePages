@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "like_#{resource.id}" do %>
+  <p>You like this!</p>
+  <% if resource.is_a?(Post) %>
+    <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, post_id: resource.id)), data: { turbo_method: :delete } %>
+  <% elsif resource.is_a?(Comment) %>
+    <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, comment_id: resource.id)), data: { turbo_method: :delete } %>
+  <% end %>
+<% end %>
