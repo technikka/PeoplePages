@@ -1,7 +1,11 @@
 <%= turbo_frame_tag "like_#{resource.id}" do %>
-  <% if resource.is_a?(Post) %>
-    <%= link_to "Like", likes_path(type: 'post', post: resource), data: { turbo_method: :post } %>
-  <% elsif resource.is_a?(Comment) %>
-    <%= link_to "Like", likes_path(type: 'comment', comment: resource), data: { turbo_method: :post } %>
+
+  <% likes = resource.likes.count %>
+  <% if likes > 0 %>
+    <p><%= link_to likes, likes_path(resource: {type: resource.class, id: resource.id}), data: { turbo_frame: "_top" } %> other<%= 's' if likes > 1 %> like<%= 's' if likes == 1 %> this. </p>
+  <% else %>
+    <p>Be the first to like this!</p>
   <% end %>
+
+  <%= link_to "Like", likes_path(resource: {type: resource.class, id: resource.id }), data: { turbo_method: :post } %>
 <% end %>

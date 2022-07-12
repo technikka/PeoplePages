@@ -1,8 +1,11 @@
 <%= turbo_frame_tag "like_#{resource.id}" do %>
-  <p>You like this!</p>
-  <% if resource.is_a?(Post) %>
-    <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, post_id: resource.id)), data: { turbo_method: :delete } %>
-  <% elsif resource.is_a?(Comment) %>
-    <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, comment_id: resource.id)), data: { turbo_method: :delete } %>
+
+  <% other_likes = resource.likes.count - 1 %>
+  <% if other_likes > 0 %>
+    <p>You and <%= link_to other_likes, likes_path(resource: {type: resource.class, id: resource.id}), data: { turbo_frame: "_top" } %> other<%= 's' if other_likes > 1 %> like this! </p>
+  <% else %>
+    <p>You like this!</p>
   <% end %>
+
+  <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, "#{resource.class}_id".downcase.to_sym => resource.id )), data: { turbo_method: :delete } %>
 <% end %>

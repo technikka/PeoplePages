@@ -1,0 +1,8 @@
+<h4>Users who have liked this</h4>
+<%= link_to "<- back", :back  %> <br><br>
+
+<% @likes.each do |like| %>
+  <li>
+    <%= link_to like.user.profile.name, user_path(like.user) %>
+  </li>
+<% end %>

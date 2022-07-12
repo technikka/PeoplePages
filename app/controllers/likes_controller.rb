@@ -1,19 +1,20 @@
 class LikesController < ApplicationController
   # shows all likes on a specific post or comment
-  def index; end
+  def index
+    klass = params[:resource][:type].constantize
+    resource = klass.find(params[:resource][:id])
+    @likes = resource.likes
+  end
 
   def create
-    @post = params[:post] if params[:type] == 'post'
-    @comment = params[:comment] if params[:type] == 'comment'
+    klass = params[:resource][:type]
+    column = "#{klass.downcase}_id".to_sym
+    foreign_key = { column => params[:resource][:id] }
 
-    foreign_key = { post_id: @post, comment_id: @comment }
     @like = current_user.likes.build(foreign_key)
     @like.save!
-    resource = if @post
-                 Post.find(@post)
-               else
-                 Comment.find(@comment)
-               end
+
+    resource = klass.constantize.find(params[:resource][:id])
     render partial: 'unlike', locals: { resource: resource }
   end
 
