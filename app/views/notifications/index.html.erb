@@ -1,3 +1,25 @@
+<h4>Notifications</h4>
+
+<% if @profile_posts && !@profile_posts.empty? %>
+  <% @profile_posts.each do |post| %>
+    <p>
+      <%= link_to post.user.profile.name, user_path(post.user) %>   
+      posted on your profile. 
+      <%= link_to "View Post", post_path(post) %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @likes && !@likes.empty? %>
+  <% @likes.each do |like| %>
+    <p>
+      <%= link_to like.user.profile.name, user_path(like.user) %>
+      likes your <%= 'post' if like.post || 'comment' if like.comment %>
+    </p>
+  <% end %>
+<% end %>
+
+
 <h4>Friend Requests</h4>
 
 <% if @friend_requests && !@friend_requests.empty? %>

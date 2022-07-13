@@ -3,8 +3,14 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   validates :body, length: { in: 3..12_000 }
+  has_one :notification, dependent: :destroy
+
+  # has_many :notifications, through: :comments
 
   default_scope { order(updated_at: :desc) }
+
+  after_create { create_notification unless friend_id.nil? }
+  before_destroy { notification&.destroy }
 
   # Posts appropriate to be shown on a user's page
   def self.user_fitted(user)

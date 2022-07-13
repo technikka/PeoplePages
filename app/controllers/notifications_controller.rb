@@ -1,6 +1,9 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = User.notifications(current_user)
-    @friend_requests = @notifications.select { |n| n.kind_of? Friendship } if @notifications
+    @friend_requests = User.friend_requests(current_user)
+    @profile_posts = User.profile_posts(current_user)
+
+    # Like query not giving exepcted result yet
+    # @likes = User.likes(current_user)
   end
 end
