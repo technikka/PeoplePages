@@ -14,7 +14,7 @@ class User < ApplicationRecord
     posts_from_friends.destroy_all
   end
 
-  def self.notifications(user); end
+  # some helpers for notifications:
 
   # returns new posts left on user's profile page.
   def self.profile_posts(user)
@@ -23,7 +23,6 @@ class User < ApplicationRecord
 
   # returns comments which are new to a post
   def self.comments(user)
-    # find comments with notification
     Comment.joins(:notification, :post).where('posts.user_id = ?', user.id)
   end
 
@@ -31,17 +30,17 @@ class User < ApplicationRecord
     Friendship.joins(:notification).where(friend_id: user.id)
   end
 
-  # def self.likes(user)
-  #   (likes_on_posts(user).to_a + likes_on_comments(user).to_a).flatten
-  # end
+  def self.likes(user)
+    likes_on_posts(user) + likes_on_comments(user)
+  end
 
-  # def self.likes_on_posts(user)
-  #   Like.joins(post: :notification).merge(Post.where(user_id: user.id))
-  # end
+  def self.likes_on_posts(user)
+    Like.joins(:notification, :post).where('posts.user_id = ?', user.id)
+  end
 
-  # def self.likes_on_comments(user)
-  #   Like.joins(comment: :notification).merge(Comment.where(user_id: user.id))
-  # end
+  def self.likes_on_comments(user)
+    Like.joins(:notification, :comment).where('comments.user_id = ?', user.id)
+  end
 
   def active_friends
     friends.includes(:friends, :profile, :posts).select { |f| f.friends.include?(self) }

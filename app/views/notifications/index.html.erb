@@ -5,7 +5,7 @@
     <p>
       <%= link_to post.user.profile.name, user_path(post.user) %>   
       posted on your profile. 
-      <%= link_to "View Post", post_path(post) %>
+      <%= link_to "View", post_path(post) %>
     </p>
   <% end %>
 <% end %>
@@ -15,8 +15,28 @@
     <p>
       <%= link_to comment.user.profile.name, user_path(comment.user) %>
       commented on your post.
-      <%= link_to "View Post", post_path(comment.post) %>
+      <%= link_to "View", post_path(comment.post) %>
     </p>
+  <% end %>
+<% end %>
+
+<% if @likes && !@likes.empty? %>
+  <% @likes.each do |like| %>
+    <p>
+      <%= link_to like.user.profile.name, user_path(like.user) %>
+      likes your
+      <% if like.comment %>
+        <%= 'comment.' %>
+      <% else %>
+        <%= 'post.' %>
+      <% end %>
+      <%= link_to "View", post_path(like.post || like.comment.post) %>
+    </p>
+  <% end %>
+
+  <% if @profile_posts.empty? && @likes.empty? && @comments.empty? 
+  %>
+    <h5>Nothing to see here. Check back later.</h5>
   <% end %>
 <% end %>
 
