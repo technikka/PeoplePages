@@ -14,16 +14,22 @@ class User < ApplicationRecord
     posts_from_friends.destroy_all
   end
 
-  # some helpers for notifications:
-
-  # returns new posts left on user's profile page.
-  def self.profile_posts(user)
-    Post.joins(:notification).where(friend_id: user.id)
+  def active_friends
+    friends.includes(:friends, :profile, :posts).select { |f| f.friends.include?(self) }
   end
 
-  # returns comments which are new to a post
+  def pending_friends
+    friends.includes(:friends, :profile).reject { |f| f.friends.include?(self) }
+  end
+
+  # helpers for notifications:
+
+  def self.profile_posts(user)
+    Post.joins(:notification).includes(:notification).where(friend_id: user.id)
+  end
+
   def self.comments(user)
-    Comment.joins(:notification, :post).where('posts.user_id = ?', user.id)
+    Comment.joins(:notification, :post).includes(:notification).where('posts.user_id = ?', user.id)
   end
 
   def self.friend_requests(user)
@@ -35,18 +41,10 @@ class User < ApplicationRecord
   end
 
   def self.likes_on_posts(user)
-    Like.joins(:notification, :post).where('posts.user_id = ?', user.id)
+    Like.joins(:notification, :post).includes(:notification).where('posts.user_id = ?', user.id)
   end
 
   def self.likes_on_comments(user)
-    Like.joins(:notification, :comment).where('comments.user_id = ?', user.id)
-  end
-
-  def active_friends
-    friends.includes(:friends, :profile, :posts).select { |f| f.friends.include?(self) }
-  end
-
-  def pending_friends
-    friends.includes(:friends, :profile).reject { |f| f.friends.include?(self) }
+    Like.joins(:notification, :comment).includes(:notification).where('comments.user_id = ?', user.id)
   end
 end

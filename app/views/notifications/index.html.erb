@@ -1,45 +1,53 @@
 <h4>Notifications</h4>
 
-<% if @profile_posts && !@profile_posts.empty? %>
-  <% @profile_posts.each do |post| %>
-    <p>
-      <%= link_to post.user.profile.name, user_path(post.user) %>   
-      posted on your profile. 
-      <%= link_to "View", post_path(post) %>
-    </p>
-  <% end %>
-<% end %>
+<%= form_with model: Notification, method: :delete do |form| %>
 
-<% if @comments && !@comments.empty? %>
-  <% @comments.each do |comment| %>
-    <p>
-      <%= link_to comment.user.profile.name, user_path(comment.user) %>
-      commented on your post.
-      <%= link_to "View", post_path(comment.post) %>
-    </p>
+  <% if @profile_posts && !@profile_posts.empty? %>
+    <% @profile_posts.each do |post| %>
+      <div>
+        <%= form.check_box post.notification.id %>
+        <%= link_to post.user.profile.name, user_path(post.user) %>   
+            posted on your profile. 
+        <%= link_to "View", post_path(post) %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<% if @likes && !@likes.empty? %>
-  <% @likes.each do |like| %>
-    <p>
-      <%= link_to like.user.profile.name, user_path(like.user) %>
-      likes your
-      <% if like.comment %>
-        <%= 'comment.' %>
-      <% else %>
-        <%= 'post.' %>
-      <% end %>
-      <%= link_to "View", post_path(like.post || like.comment.post) %>
-    </p>
+  <% if @comments && !@comments.empty? %>
+    <% @comments.each do |comment| %>
+      <div>
+        <%= form.check_box comment.notification.id %>
+        <%= link_to comment.user.profile.name, user_path(comment.user) %>
+          commented on your post.
+        <%= link_to "View", post_path(comment.post) %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+  <% if @likes && !@likes.empty? %>
+    <% @likes.each do |like| %>
+      <div>
+        <%= form.check_box like.notification.id %>
+        <%= link_to like.user.profile.name, user_path(like.user) %>
+          likes your
+        <% if like.comment %>
+          <%= 'comment.' %>
+        <% else %>
+          <%= 'post.' %>
+        <% end %>
+        <%= link_to "View", post_path(like.post || like.comment.post)   %>
+      </div> <br>
+    <% end %>
   <% end %>
 
   <% if @profile_posts.empty? && @likes.empty? && @comments.empty? 
   %>
     <h5>Nothing to see here. Check back later.</h5>
   <% end %>
-<% end %>
 
+  <%= form.submit 'Delete selected notifications' %>
+<% end %>
 
 <h4>Friend Requests</h4>
 

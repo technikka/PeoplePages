@@ -5,4 +5,11 @@ class NotificationsController < ApplicationController
     @comments = User.comments(current_user)
     @likes = User.likes(current_user)
   end
+
+  def destroy_multiple
+    params[:notification].each_pair do |k, v|
+      Notification.destroy(k) if v == '1'
+    end
+    redirect_to notifications_path
+  end
 end
