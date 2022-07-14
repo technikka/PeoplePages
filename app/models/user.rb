@@ -21,9 +21,11 @@ class User < ApplicationRecord
     Post.joins(:notification).where(friend_id: user.id)
   end
 
-
-  # def self.comments(user)
-    
+  # returns comments which are new to a post
+  def self.comments(user)
+    # find comments with notification
+    Comment.joins(:notification, :post).where('posts.user_id = ?', user.id)
+  end
 
   def self.friend_requests(user)
     Friendship.joins(:notification).where(friend_id: user.id)
