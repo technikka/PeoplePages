@@ -6,7 +6,7 @@
 
   <div class="query-result">
     <% if @queried_user %>
-      <%= link_to @queried_user.profile.name, user_path(@queried_user) %>
+      <%= link_to @queried_user.name, user_path(@queried_user) %>
     <% else %>
       <p>Friend not found. Try another search term.</p>
     <% end %>

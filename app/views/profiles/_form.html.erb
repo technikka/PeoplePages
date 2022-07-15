@@ -1,28 +1,28 @@
-
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-    <div>
-      <%= form.label :current_city %>
-      <%= form.text_field :current_city %>
-    </div>
-    <div>
-      <%= form.label :hometown %>
-      <%= form.text_field :hometown %>
-    </div>
-    <div>
-      <%= form.label :workplace %>
-      <%= form.text_field :workplace %>
-    </div>
-    <div>
-      <%= form.label :websites %>
-      <%= form.text_field :websites %>
-    </div>
-    <div>
-      <%= form.label :social_links %>
-      <%= form.text_field :social_links %>
-    </div>
-    <%= form.submit "Save" %>
-    <%= link_to "exit", user_path(current_user) %>
-
+<div>
+  <%= form.fields_for :user do |user_form| %>
+    <%= user_form.label :name %>
+    <%= user_form.text_field :name, value: current_user.name %>
+  <% end %>
+</div>
+<div>
+  <%= form.label :current_city %>
+  <%= form.text_field :current_city %>
+</div>
+<div>
+  <%= form.label :hometown %>
+  <%= form.text_field :hometown %>
+</div>
+<div>
+  <%= form.label :workplace %>
+  <%= form.text_field :workplace %>
+</div>
+<div>
+  <%= form.label :websites %>
+  <%= form.text_field :websites %>
+</div>
+<div>
+  <%= form.label :social_links %>
+  <%= form.text_field :social_links %>
+</div>
+<%= form.submit "Save" %>
+<%= link_to "exit", user_path(current_user) %>

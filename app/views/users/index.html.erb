@@ -13,6 +13,6 @@
 <% @users.each do |user| %>
   <div>
   <%# user.profile.photo %>
-    <%= link_to user.profile.name, user_path(user)  %>
+    <%= link_to user.name, user_path(user)  %>
   </div>
 <% end %>

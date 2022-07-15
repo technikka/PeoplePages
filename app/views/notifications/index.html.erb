@@ -6,7 +6,7 @@
     <% @profile_posts.each do |post| %>
       <div>
         <%= form.check_box post.notification.id %>
-        <%= link_to post.user.profile.name, user_path(post.user) %>   
+        <%= link_to post.user.name, user_path(post.user) %>   
             posted on your profile. 
         <%= link_to "View", post_path(post) %>
       </div>
@@ -17,19 +17,18 @@
     <% @comments.each do |comment| %>
       <div>
         <%= form.check_box comment.notification.id %>
-        <%= link_to comment.user.profile.name, user_path(comment.user) %>
+        <%= link_to comment.user.name, user_path(comment.user) %>
           commented on your post.
         <%= link_to "View", post_path(comment.post) %>
       </div>
     <% end %>
   <% end %>
 
-
   <% if @likes && !@likes.empty? %>
     <% @likes.each do |like| %>
       <div>
         <%= form.check_box like.notification.id %>
-        <%= link_to like.user.profile.name, user_path(like.user) %>
+        <%= link_to like.user.name, user_path(like.user) %>
           likes your
         <% if like.comment %>
           <%= 'comment.' %>

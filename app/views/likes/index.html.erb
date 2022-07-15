@@ -3,6 +3,6 @@
 
 <% @likes.each do |like| %>
   <li>
-    <%= link_to like.user.profile.name, user_path(like.user) %>
+    <%= link_to like.user.name, user_path(like.user) %>
   </li>
 <% end %>

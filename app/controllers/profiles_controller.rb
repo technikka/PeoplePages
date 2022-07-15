@@ -8,8 +8,8 @@ class ProfilesController < ApplicationController
   def create
     @profile = current_user.build_profile(profile_params)
 
-    if @profile.save
-      redirect_to user_path(current_user), notice: 'Profile information saved'
+    if @profile.save && current_user.update({ name: user_params[:user][:name] })
+      redirect_to user_path(current_user)
     else
       render :new, status: :unprocessable_entity, alert: 'Problem saving profile information'
     end
@@ -24,8 +24,8 @@ class ProfilesController < ApplicationController
     @user = current_user
     @profile = Profile.find_by(user_id: params[:user_id])
 
-    if @profile.update(edited_profile_params)
-      redirect_to user_path(current_user), notice: 'Profile information updated'
+    if @profile.update(edited_profile_params) && @user.update({ name: edited_profile_params[:user_attributes][:name] })
+      redirect_to user_path(current_user)
     else
       render :new, status: :unprocessable_entity, alert: 'Problem updating profile information'
     end
@@ -34,10 +34,14 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:name, :current_city, :hometown, :workplace, :websites, :social_links)
+    params.permit(:current_city, :hometown, :workplace, :websites, :social_links)
+  end
+
+  def user_params
+    params.permit(:id, user: [:name])
   end
 
   def edited_profile_params
-    params.require(:profile).permit(:name, :current_city, :hometown, :workplace, :websites, :social_links)
+    params.require(:profile).permit(:current_city, :hometown, :workplace, :websites, :social_links, user_attributes: [:name, :id])
   end
 end

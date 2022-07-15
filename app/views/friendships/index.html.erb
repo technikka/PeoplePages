@@ -15,7 +15,7 @@
 
 
 <h4>Waiting for your approval</h4>
-<% @requests = User.notifications(current_user).select { |n| n.kind_of?(Friendship) && n.friend == current_user } %>
+<% @requests = User.friend_requests(current_user) %>
 <% if !@requests.empty? %>
   <% @requests.each do |request| %>
     <%= turbo_frame_tag 'accept_request' do %>

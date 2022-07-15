@@ -3,16 +3,16 @@
 
   <%# New user - without profile %>
   <% if current_user.profile.nil? %>
-    <h3>Welcome to PeoplePages, <%= current_user.email%>!</h3>
-    <h4>Let's get started with some information for your  profile</h4>
+    <h3>Welcome to PeoplePages, <%= current_user.name%>!</h3>
+    <h4>Let's get started with some information for your profile</h4>
     <%= form_with model: @profile do |form| %>
-      <%= render 'profiles/form', profile: @profile, form:  form %>
+      <%= render 'profiles/form', profile: @profile, form: form %>
     <% end %>
   <% else %>
     <%= render 'profiles/info' %>
-    <% Post.user_fitted(@user).each do |post| %>
-      <%= render 'posts/post', post: post %>
-    <% end %>
+  <% end %>
+  <% Post.user_fitted(@user).each do |post| %>
+    <%= render 'posts/post', post: post %>
   <% end %>
 <% else %>
 
@@ -37,7 +37,7 @@
 
   <%# current_user looking at another users page %>
   <% else %>
-    <p>Become friends with <%= @user.profile.name.split[0] %> to view their profile.</p>
+    <p>Become friends with <%= @user.name.split[0] %> to view their profile.</p>
     <%= render 'friendships/initiate_request', friend: @user %>
   <% end %>
 <% end %>

@@ -9,6 +9,10 @@
     <% end %>
   <% end %>
 
+  <% if current_user == post.user %>
+    <%= link_to "Delete", post_path(post), data: { turbo_method: :delete }  %>
+  <% end %>
+
   <%= turbo_frame_tag "post_#{post.id}" do %>
     <%= render 'comments/preview', post: post %>
   <% end %>
