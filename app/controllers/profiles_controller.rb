@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
     if @profile.save && current_user.update({ name: user_params[:user][:name] })
       redirect_to user_path(current_user)
     else
-      render :new, status: :unprocessable_entity, alert: 'Problem saving profile information'
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
     if @profile.update(edited_profile_params) && @user.update({ name: edited_profile_params[:user_attributes][:name] })
       redirect_to user_path(current_user)
     else
-      render :new, status: :unprocessable_entity, alert: 'Problem updating profile information'
+      render :edit, status: :unprocessable_entity
     end
   end
 

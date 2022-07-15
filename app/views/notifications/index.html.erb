@@ -54,9 +54,8 @@
   <% @friend_requests.each do |request| %>
     <div>
       <%= turbo_frame_tag 'accept_request' do %>
-        <% requester = User.find(request.user_id) %>
-        <%= link_to requester.name, user_path(requester) %>
-         <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester), data: { turbo_method: :post } %>
+        <%= link_to request.user.name, user_path(request.user) %>
+         <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post } %>
         <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
       <% end %>
     </div>

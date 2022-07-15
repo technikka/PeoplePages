@@ -5,9 +5,11 @@
   <% if current_user.profile.nil? %>
     <h3>Welcome to PeoplePages, <%= current_user.name%>!</h3>
     <h4>Let's get started with some information for your profile</h4>
-    <%= form_with model: @profile do |form| %>
+
+     <%= form_with model: @profile do |form| %>
       <%= render 'profiles/form', profile: @profile, form: form %>
     <% end %>
+    
   <% else %>
     <%= render 'profiles/info' %>
   <% end %>
@@ -20,6 +22,7 @@
   <% if current_user.active_friends.include?(@user) %>
     <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete } %>
 
+    <%= render partial: 'profiles/info' %>
     <%= render partial: 'posts/friend', locals: { friend: @user } %>
 
     <% Post.user_fitted(@user).each do |post| %>
@@ -27,7 +30,7 @@
     <% end %>
 
   <%# current_user looking at a user who has requested friendship %>
-  <% elsif User.notifications(current_user).any? { |n| n.kind_of?(Friendship) && n.user_id == @user.id } %>
+  <% elsif @user.pending_friends.include?(current_user) %>
     <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
     <%= link_to "Deny Request", user_friendship_path(current_user, @user.id, type: :deny_request), data: { turbo_method: :delete } %>
 
