@@ -1,4 +1,8 @@
 <div>
+  <%= form.label :image, "Profile Photo" %>
+  <%= form.file_field :image %>
+</div>
+<div>
   <%= form.fields_for :user do |user_form| %>
     <%= user_form.label :name %>
     <%= user_form.text_field :name, value: current_user.name %>
@@ -25,4 +29,7 @@
   <%= form.text_field :social_links %>
 </div>
 <%= form.submit "Save" %>
-<%= link_to "exit", user_path(current_user) %>
+
+<% if !current_user.profile.nil? %>
+  <%= link_to "exit", user_path(current_user) %>
+<% end %>

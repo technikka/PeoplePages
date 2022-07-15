@@ -43,9 +43,9 @@
   <% if @profile_posts.empty? && @likes.empty? && @comments.empty? 
   %>
     <h5>Nothing to see here. Check back later.</h5>
+  <% else %>
+    <%= form.submit 'Delete selected notifications' %>
   <% end %>
-
-  <%= form.submit 'Delete selected notifications' %>
 <% end %>
 
 <h4>Friend Requests</h4>
