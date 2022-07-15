@@ -34,7 +34,7 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:current_city, :hometown, :workplace, :websites, :social_links)
+    params.permit(:current_city, :hometown, :workplace, :websites, :social_links, :image)
   end
 
   def user_params
@@ -42,6 +42,6 @@ class ProfilesController < ApplicationController
   end
 
   def edited_profile_params
-    params.require(:profile).permit(:current_city, :hometown, :workplace, :websites, :social_links, user_attributes: [:name, :id])
+    params.require(:profile).permit(:current_city, :hometown, :workplace, :websites, :social_links, :image, user_attributes: [:name, :id])
   end
 end
