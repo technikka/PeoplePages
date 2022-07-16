@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
   validates :image, content_type: ['image/png', 'image/jpeg']
 
   def image_as_thumbnail
-    image.variant(resize_to_limit: [40, 40]).processed
+    image.variant(resize_to_limit: [50, 50]).processed
   end
 
   def image_as_small

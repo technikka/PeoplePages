@@ -12,7 +12,7 @@
 
 <% @users.each do |user| %>
   <div>
-  <%# user.profile.photo %>
+    <%= image_tag(user.profile.image_as_thumbnail) %>
     <%= link_to user.name, user_path(user)  %>
   </div>
 <% end %>

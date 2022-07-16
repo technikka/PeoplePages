@@ -5,8 +5,13 @@
   <% end %>
 
   <div class="query-result">
-    <% if @queried_user %>
-      <%= link_to @queried_user.name, user_path(@queried_user) %>
+    <% if !@query_results.empty? %>
+      <% @query_results.each do |user| %>
+        <div>
+          <%= image_tag(user.profile.image_as_thumbnail) %>
+          <%= link_to user.name, user_path(user) %>
+        </div>
+      <% end %>
     <% else %>
       <p>Friend not found. Try another search term.</p>
     <% end %>

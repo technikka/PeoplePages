@@ -2,8 +2,10 @@
   <ul>
     <% if comment %>
       <li>
-        <%= comment.body %>
+        <%= image_tag(comment.user.profile.image_as_thumbnail) %>
         <%= link_to comment.user.name, user_path(comment.user), data: { turbo_frame: "_top" } %>
+
+        <%= comment.body %>
 
         <%= turbo_frame_tag "like_#{post.id}" do %>
           <% if comment.likes.any? { |like| like.user_id == current_user.id } %>

@@ -2,8 +2,11 @@
   <% if comment %>
     <div id="<%= "comment_#{comment.id}" %>">
       <li>
+        <%= image_tag(comment.user.profile.image_as_thumbnail) %>
+        <%= link_to comment.user.name, user_path(comment.user), data: { turbo_frame: "_top" } %> <br>
+
         <%= comment.body %>
-        <%= link_to comment.user.name, user_path(comment.user), data: { turbo_frame: "_top" } %>
+
         <%= turbo_frame_tag "like_#{comment.post.id}" do %>
           <% if comment.likes.any? { |like| like.user_id == current_user.id } %>
             <%= render partial: 'likes/unlike', locals: {resource: comment } %>

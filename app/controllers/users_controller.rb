@@ -10,12 +10,8 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:query].include?('@')
-      @queried_user = User.find_by(email: params[:query])
-    else
-      profile = Profile.find_by(name: params[:query])
-      @queried_user = profile.user if profile
-    end
+    search = params[:query].downcase
+    @query_results = User.where('lower(name) LIKE ?', "%" + User.sanitize_sql_like(search) + "%").or(User.where(email: params[:query]))
 
     render partial: 'search'
   end
