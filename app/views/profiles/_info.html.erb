@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "profile_info" do %>
   <div>
     <h3><%= @user.name %></h3>
-    <%= link_to image_tag(@user.profile.image_as_small), @user.profile.image %>
+    <%= render partial: 'profiles/display_image', locals: { user: @user, size: :small } %>
     <p>Current City: <%= @user.profile.current_city %></p>
     <p>Hometown: <%= @user.profile.hometown %></p>
     <p>Workplace: <%= @user.profile.workplace %></p>

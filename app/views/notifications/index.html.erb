@@ -6,7 +6,7 @@
     <% @profile_posts.each do |post| %>
       <div>
         <%= form.check_box post.notification.id %>
-        <%= image_tag(post.user.profile.image_as_thumbnail) %>
+        <%= render partial: 'profiles/display_image', locals: { user: post.user, size: :thumbnail } %>
         <%= link_to post.user.name, user_path(post.user) %>   
             posted on your profile. 
         <%= link_to "View", post_path(post) %>
@@ -18,7 +18,7 @@
     <% @comments.each do |comment| %>
       <div>
         <%= form.check_box comment.notification.id %>
-        <%= image_tag(comment.user.profile.image_as_thumbnail) %>
+        <%= render partial: 'profiles/display_image', locals: { user: comment.user, size: :thumbnail } %>
         <%= link_to comment.user.name, user_path(comment.user) %>
           commented on your post.
         <%= link_to "View", post_path(comment.post) %>
@@ -30,7 +30,7 @@
     <% @likes.each do |like| %>
       <div>
         <%= form.check_box like.notification.id %>
-        <%= image_tag(like.user.profile.image_as_thumbnail) %>
+        <%= render partial: 'profiles/display_image', locals: { user: like.user, size: :thumbnail } %>
         <%= link_to like.user.name, user_path(like.user) %>
           likes your
         <% if like.comment %>
@@ -57,7 +57,7 @@
   <% @friend_requests.each do |request| %>
     <div>
       <%= turbo_frame_tag 'accept_request' do %>
-        <%= image_tag(request.user.profile.image_as_thumbnail) %>
+        <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
         <%= link_to request.user.name, user_path(request.user) %>
          <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post } %>
         <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>

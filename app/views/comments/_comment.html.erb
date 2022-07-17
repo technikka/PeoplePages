@@ -2,7 +2,7 @@
   <% if comment %>
     <div id="<%= "comment_#{comment.id}" %>">
       <li>
-        <%= image_tag(comment.user.profile.image_as_thumbnail) %>
+        <%= render partial: 'profiles/display_image', locals: { user: comment.user, size: :thumbnail } %>
         <%= link_to comment.user.name, user_path(comment.user), data: { turbo_frame: "_top" } %> <br>
 
         <%= comment.body %>

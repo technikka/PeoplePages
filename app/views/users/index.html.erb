@@ -12,7 +12,7 @@
 
 <% @users.each do |user| %>
   <div>
-    <%= image_tag(user.profile.image_as_thumbnail) %>
+    <%= render partial: 'profiles/display_image', locals: { user: user, size: :thumbnail } %>
     <%= link_to user.name, user_path(user)  %>
   </div>
 <% end %>

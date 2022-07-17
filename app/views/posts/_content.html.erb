@@ -1,6 +1,6 @@
 <div class="post">
   <% author = post.user %>
-  <%= image_tag(author.profile.image_as_thumbnail) %>
+  <%= render partial: 'profiles/display_image', locals: { user: author, size: :thumbnail } %>
   <strong><%= link_to "#{author.name}",user_path(author.id) %></strong>
   <%= post.created_at.strftime('%B %e at %l:%M%P') %>
   <%= post.body %>
