@@ -1,5 +1,7 @@
-<div class=" p-2 drop-shadow-md bg-stone-100 rounded-lg ">
-  <%= render partial: 'posts/content', locals: { post: post } %>
+<div class=" p-2 drop-shadow-md bg-stone-100 rounded-lg grid grid-rows-5 grid-cols-3 ">
+  <div class="row-span-2 col-span-full">
+    <%= render partial: 'posts/content', locals: { post: post } %>
+  </div>
 
   <%= turbo_frame_tag "like_#{post.id}" do %>
     <% if post.likes.any? { |like| like.user_id == current_user.id } %>
@@ -7,10 +9,6 @@
     <% else %>
       <%= render partial: 'likes/like', locals: { resource: post } %>
     <% end %>
-  <% end %>
-
-  <% if current_user == post.user %>
-    <%= link_to "Delete", post_path(post), data: { turbo_method: :delete }  %>
   <% end %>
 
   <%= turbo_frame_tag "post_#{post.id}" do %>
@@ -22,11 +20,19 @@
     <span><%= post.comments.size - 3 %> more comments. </span>
   <% end %>
 
-  <% if @author == current_user %>
-    <span><%= link_to "View/Edit Post", post_path(post.id)%></span>
-  <% else %>
-    <span><%= link_to "View Post", post_path(post.id)%></span>
-  <% end %>
+  <div class="row-start-4">
+    <% if @author == current_user %>
+      <span><%= link_to "View/Edit Post", post_path(post.id)%></span>
+    <% else %>
+      <span><%= link_to "View Post", post_path(post.id)%></span>
+    <% end %>
+  
+    <% if current_user == post.user %>
+      <%= link_to "Delete", post_path(post), data: { turbo_method: :delete }  %>
+    <% end %>
+  </div>
 
-  <%= render partial: 'comments/form', locals: { post: post} %>
+  <div class="row-start-5 col-span-full">
+    <%= render partial: 'comments/form', locals: { post: post} %>
+  </div>
 </div>

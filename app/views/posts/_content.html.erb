@@ -1,9 +1,20 @@
-<div class="post">
+<div class="grid grid-rows-2 grid-cols-3 gap-y-1 align-items-center border-solid border-b-2 border-amber-300" >
   <% author = post.user %>
-  <%= render partial: 'profiles/display_image', locals: { user: author, size: :thumbnail } %>
-  <strong><%= link_to "#{author.name}",user_path(author.id) %></strong>
-  <%= post.created_at.strftime('%B %e at %l:%M%P') %>
-  <%= post.body %>
+
+  <div class=" col-start-1 row-start-1">
+    <%= render partial: 'profiles/display_image', locals: { user: author, size: :thumbnail } %>
+  </div>
+
+  <%= link_to "#{author.name}", user_path(author.id), class: "font-bold flex items-center col-start-1 row-start-1 justify-self-center " %>
+
+  <div class="col-start-3 row-span-1 flex items-center">
+    <%= post.created_at.strftime('%B %e at %l:%M%P') %>
+  </div>
+
+  <div class= "col-span-full flex items-center">
+    <%= post.body %>
+  </div>
+
   <% if post.updated_at != post.created_at %>
     <p>Updated:
     <%= post.updated_at.strftime('%B %e at %l:%M%P') %>
