@@ -1,13 +1,15 @@
-<div class="grid grid-rows-2 grid-cols-3 gap-y-1 align-items-center border-solid border-b-2 border-amber-300 pb-2" >
+<div class="grid grid-rows-2 grid-cols-2 gap-y-1 align-items-center border-solid border-b-2 border-amber-300 pb-2" >
   <% author = post.user %>
 
-  <div class=" col-start-1 row-start-1 pl-3">
-    <%= render partial: 'profiles/display_image', locals: { user: author, size: :thumbnail } %>
+  <div class=" col-start-1 row-start-1 pl-3 flex items-center" >
+    <div class="inline-block" >
+      <%= render partial: 'profiles/display_image', locals: { user: author, size: :thumbnail } %>
+    </div>
+  
+    <%= link_to "#{author.name}", user_path(author.id), class: "pl-3 font-bold hover:text-sky-800 inline-block" %>
   </div>
 
-  <%= link_to "#{author.name}", user_path(author.id), class: "font-bold flex items-center col-start-1 row-start-1 justify-self-center hover:text-sky-800 " %>
-
-  <div class="col-start-3 row-span-1 flex items-center">
+  <div class="col-start-2 justify-self-center row-span-1 flex items-center text-neutral-400">
     <%= post.created_at.strftime('%B %e at %l:%M%P') %>
   </div>
 

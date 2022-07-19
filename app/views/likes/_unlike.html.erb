@@ -1,11 +1,15 @@
 <%= turbo_frame_tag "like_#{resource.id}" do %>
-
+  
   <% other_likes = resource.likes.count - 1 %>
   <% if other_likes > 0 %>
-    <p>You and <%= link_to other_likes, likes_path(resource: {type: resource.class, id: resource.id}), data: { turbo_frame: "_top" } %> other<%= 's' if other_likes > 1 %> like this! </p>
+    <div class="inline-block">
+      You and <%= link_to other_likes, likes_path(resource: {type: resource.class, id: resource.id}), class: "underline decoration-sky-800 text-sky-800", data: { turbo_frame: "_top" } %> other<%= 's' if other_likes > 1 %> like this!&nbsp;&nbsp;
+    </div>
   <% else %>
-    <p>You like this!</p>
+    <div class="inline-block">You like this!&nbsp;&nbsp;</div>
   <% end %>
 
-  <%= link_to "UnLike", like_path(Like.find_by(user_id: current_user.id, "#{resource.class}_id".downcase.to_sym => resource.id )), data: { turbo_method: :delete } %>
+  <div class="inline-block">
+    <%= link_to image_tag("icons/unlike_outline.png"), like_path(Like.find_by(user_id: current_user.id, "#{resource.class}_id".downcase.to_sym => resource.id )), data: { turbo_method: :delete }, class: "invert brightness-60 hover:brightness-50" %>
+  </div>
 <% end %>

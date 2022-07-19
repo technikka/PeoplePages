@@ -1,27 +1,18 @@
 <div class="bg-amber-300 pt-1 pl-1 drop-shadow-lg rounded-lg">
-  <div class=" py-2 pr-2 drop-shadow-md bg-stone-100 rounded-lg grid grid-rows-5 grid-cols-3">
-    <div class="row-span-2 col-span-full">
+  <div class=" py-2 pr-2 drop-shadow-md bg-stone-100 rounded-lg grid grid-cols-3">
+    <div class="col-span-full ">
       <%= render partial: 'posts/content', locals: { post: post } %>
     </div>
   
-    <%= turbo_frame_tag "like_#{post.id}" do %>
+    <%= turbo_frame_tag "like_#{post.id}", class: "row-start-2 col-span-full pl-3 py-2 flex items-center" do %>
       <% if post.likes.any? { |like| like.user_id == current_user.id } %>
         <%= render partial: 'likes/unlike', locals: {resource: post } %>
       <% else %>
         <%= render partial: 'likes/like', locals: { resource: post } %>
       <% end %>
     <% end %>
-  
-    <%= turbo_frame_tag "post_#{post.id}" do %>
-      <%= render 'comments/preview', post: post %>
-    <% end %>
-  
-    <% @num_comments = post.comments.size %>
-    <% if @num_comments > 3 %>
-      <span><%= post.comments.size - 3 %> more comments. </span>
-    <% end %>
-  
-    <div class="row-start-4">
+
+    <div class="row-start-3 pl-3 py-2 flex items-center">
       <% if @author == current_user %>
         <span><%= link_to "View/Edit Post", post_path(post.id)%></span>
       <% else %>
@@ -33,7 +24,16 @@
       <% end %>
     </div>
   
-    <div class="row-start-5 col-span-full">
+    <%= turbo_frame_tag "post_#{post.id}" do %>
+      <%= render 'comments/preview', post: post %>
+    <% end %>
+  
+    <% @num_comments = post.comments.size %>
+    <% if @num_comments > 3 %>
+      <span><%= post.comments.size - 3 %> more comments. </span>
+    <% end %>
+  
+    <div class="row-start-5 col-span-full pl-3 py-2">
       <%= render partial: 'comments/form', locals: { post: post} %>
     </div>
   </div>
