@@ -10,6 +10,6 @@
   <% end %>
 
   <div class="inline-block">
-    <%= link_to image_tag("icons/unlike_outline.png"), like_path(Like.find_by(user_id: current_user.id, "#{resource.class}_id".downcase.to_sym => resource.id )), data: { turbo_method: :delete }, class: "invert brightness-60 hover:brightness-50" %>
+    <%= link_to image_tag("icons/unlike_outline.png"), like_path(Like.find_by(user_id: current_user.id, "#{resource.class}_id".downcase.to_sym => resource.id )), data: { turbo_method: :delete }, title: 'Unlike', class: "invert brightness-60 hover:brightness-50" %>
   </div>
 <% end %>
