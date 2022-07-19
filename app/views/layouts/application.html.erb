@@ -21,10 +21,10 @@
           <%= link_to "Find Friends", users_path %>
         </div>
         <div class="col-start-4 justify-self-end p-2 hover:rounded-b-lg hover:bg-amber-300">
-          <%= link_to "My Profile", user_profile_path(current_user) %>
+          <%= link_to current_user.name, user_profile_path(current_user) %>
         </div>
         <div class="col-start-5 justify-self-center p-2 hover:rounded-b-lg hover:bg-amber-300">
-          <%= link_to "My Friends", user_friendships_path(current_user) %>
+          <%= link_to "Friends", user_friendships_path(current_user) %>
         </div>
         <div class="col-start-6 col-span-2 justify-self-start p-2 hover:rounded-b-lg hover:bg-amber-300">
           <%= link_to "Notifications", notifications_path %>

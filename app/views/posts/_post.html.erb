@@ -1,4 +1,4 @@
-<div class="post-container">
+<div class=" p-2 drop-shadow-md bg-stone-100 rounded-lg ">
   <%= render partial: 'posts/content', locals: { post: post } %>
 
   <%= turbo_frame_tag "like_#{post.id}" do %>

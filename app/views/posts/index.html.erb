@@ -1,7 +1,7 @@
-<%# render the new post frame %>
 <%= render 'new' %>
 
-<%# @posts contains only those of current_user.active_friends %>
-<% @posts.includes(:user, :comments).each do |post| %>
-  <%= render partial: 'post', locals: { post: post } %>
-<% end %>
+<div class=" mt-12 grid grid-rows-auto gap-4 justify-items-center">
+	<% @posts.includes(:user, :comments).each do |post| %>
+	  <%= render partial: 'post', locals: { post: post } %>
+	<% end %>
+</div>
