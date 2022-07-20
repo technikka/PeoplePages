@@ -7,7 +7,7 @@
     <div class="row-start-2 pl-3 pt-2 flex items-center gap-2">
       <%= link_to image_tag('icons/view_outline.png'), post_path(post.id), title: "View Post", class: "invert brightness-60 hover:brightness-50" %>
       <% if current_user == post.user %>
-        <%= link_to image_tag("icons/edit_outline.png"), edit_post_path(post), title: 'Edit Post', class: "invert brightness-60 hover:brightness-50" %>
+        <%= link_to image_tag("icons/edit_outline.png"), post_path(post), title: 'Edit Post', class: "invert brightness-60 hover:brightness-50" %>
         <%= link_to image_tag("icons/delete_outline.png"), post_path(post), title: 'Delete Post', data: { turbo_confirm: "Are you sure you want to delete this post?", turbo_method: :delete }, class: "invert brightness-60 hover:brightness-50"  %>
       <% end %>
     </div>

@@ -1,5 +1,6 @@
 <div class="grid justify-items-center mt-10">
   <div class="bg-stone-100 shadow-inner p-4">
+
     <%= turbo_frame_tag 'post', class: "" do %>
       <%= render partial: 'posts/content', locals: { post: @post} %>
     
@@ -20,9 +21,7 @@
         <% end %>
       </div>
 
-    <% end %>
-    
-    <div class="pt-1 pl-3"><%= @post.comments.size %> comments</div>
+      <div class="pt-1 pl-3"><%= @post.comments.size %> comments</div>
     
     <%= turbo_frame_tag 'comment', class: "divide-y-2 pl-3" do %>
       <% @post.comments.includes(:user).each do |comment| %>
@@ -31,5 +30,7 @@
     <% end %>
     
     <%= render partial: 'comments/form', locals: { post: @post } %>
+
+    <% end %>
   </div>
 </div>

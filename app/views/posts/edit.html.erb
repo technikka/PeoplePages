@@ -1,7 +1,11 @@
-<%= turbo_frame_tag 'post' do %>
-  <%= form_with model: @post, method: :patch do |form| %>
-    <%= form.text_area :body, size: '60X20' %>
-    <%= form.submit 'Update' %>
-    <%= link_to "Cancel", post_path(@post) %>
+<div>
+  <%= turbo_frame_tag 'post' do %>
+    <%= form_with model: @post, method: :patch do |form| %>
+      <%= form.text_area :body, size: '60X20' %>
+      <div class="py-3">
+        <%= form.submit 'Update', class: "border-solid border-2 border-stone-200 p1 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+        <%= link_to "Cancel", post_path(@post), class: "border-solid border-2 border-stone-200 p1 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
