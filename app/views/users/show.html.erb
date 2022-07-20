@@ -10,12 +10,16 @@
   
     <%# New user - without profile %>
     <% if current_user.profile.nil? %>
-      <h3>Welcome to PeoplePages, <%= current_user.name%>!</h3>
-      <h4>Let's get started with some information for your profile</h4>
-  
-       <%= form_with model: @profile do |form| %>
-        <%= render 'profiles/form', profile: @profile, form: form %>
-      <% end %>
+      <div class = "row-start-2 col-start-2 justify-self-start">
+        <strong>
+          <h3>Welcome to PeoplePages!</h3>
+          <h4 class="pb-3">Let's get started with some information for your profile</h4>
+        </strong>
+      
+        <%= form_with model: @profile do |form| %>
+          <%= render 'profiles/form', profile: @profile, form: form %>
+        <% end %>
+      </div>
       
     <% else %>
       <%= render 'profiles/info' %>
@@ -52,8 +56,12 @@
   
     <%# current_user looking at another users page %>
     <% else %>
-      <p>Become friends with <%= @user.name.split[0] %> to view their profile.</p>
-      <%= render 'friendships/initiate_request', friend: @user %>
+      <div class="row-start-2 col-start-2 justify-self-start">
+        <p class="pb-4">Become friends with <%= @user.name.split[0] %> to view their profile.</p>
+       
+        <%= render 'friendships/initiate_request', friend: @user %>
+      </div>
+
     <% end %>
   <% end %>
 </div>
