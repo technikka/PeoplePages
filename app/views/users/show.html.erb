@@ -1,46 +1,59 @@
-<%# User looking at their own page: %>
-<% if current_user == @user %>
+<div class="grid justify-items-center m-5 grid-cols-2 gap-8 ">
+  <h3 class="font-bold text-2xl row-start-1 col-start-1 col-span-full justify-self-center"><%= @user.name %></h3>
 
-  <%# New user - without profile %>
-  <% if current_user.profile.nil? %>
-    <h3>Welcome to PeoplePages, <%= current_user.name%>!</h3>
-    <h4>Let's get started with some information for your profile</h4>
-
-     <%= form_with model: @profile do |form| %>
-      <%= render 'profiles/form', profile: @profile, form: form %>
-    <% end %>
-    
-  <% else %>
-    <%= render 'profiles/info' %>
-  <% end %>
-  <% Post.user_fitted(@user).each do |post| %>
-    <%= render 'posts/post', post: post %>
-  <% end %>
-<% else %>
-
-  <%# current_user looking at a friends page %>
-  <% if current_user.active_friends.include?(@user) %>
-    <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete } %>
-
-    <%= render partial: 'profiles/info' %>
-    <%= render partial: 'posts/friend', locals: { friend: @user } %>
-
-    <% Post.user_fitted(@user).each do |post| %>
-      <%= render 'posts/post', post: post %>
+  <div class="row-start-2 col-start-1 justify-self-end">
+    <%= render partial: 'profiles/display_image', locals: { user: @user, size: :small } %>
+  </div>
+  
+  <%# User looking at their own page: %>
+  <% if current_user == @user %>
+  
+    <%# New user - without profile %>
+    <% if current_user.profile.nil? %>
+      <h3>Welcome to PeoplePages, <%= current_user.name%>!</h3>
+      <h4>Let's get started with some information for your profile</h4>
+  
+       <%= form_with model: @profile do |form| %>
+        <%= render 'profiles/form', profile: @profile, form: form %>
+      <% end %>
+      
+    <% else %>
+      <%= render 'profiles/info' %>
     <% end %>
 
-  <%# current_user looking at a user who has requested friendship %>
-  <% elsif @user.pending_friends.include?(current_user) %>
-    <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
-    <%= link_to "Deny Request", user_friendship_path(current_user, @user.id, type: :deny_request), data: { turbo_method: :delete } %>
-
-  <%# current_user looking at user they've requested friendship %>
-  <% elsif current_user.pending_friends.include?(@user) %>
-    <%= render 'friendships/cancel_request', friend: @user %>
-
-  <%# current_user looking at another users page %>
+    <div class="row-start-3 col-span-full justify-self-center">
+      <% Post.user_fitted(@user).each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+    </div>
   <% else %>
-    <p>Become friends with <%= @user.name.split[0] %> to view their profile.</p>
-    <%= render 'friendships/initiate_request', friend: @user %>
+  
+    <%# current_user looking at a friends page %>
+    <% if current_user.active_friends.include?(@user) %>
+      <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete } %>
+  
+      <%= render partial: 'profiles/info' %>
+      <%= render partial: 'posts/friend', locals: { friend: @user } %>
+  
+      <div class="row-start-3 row-span-full">
+        <% Post.user_fitted(@user).each do |post| %>
+          <%= render 'posts/post', post: post %>
+        <% end %>
+      </div>
+  
+    <%# current_user looking at a user who has requested friendship %>
+    <% elsif @user.pending_friends.include?(current_user) %>
+      <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
+      <%= link_to "Deny Request", user_friendship_path(current_user, @user.id, type: :deny_request), data: { turbo_method: :delete } %>
+  
+    <%# current_user looking at user they've requested friendship %>
+    <% elsif current_user.pending_friends.include?(@user) %>
+      <%= render 'friendships/cancel_request', friend: @user %>
+  
+    <%# current_user looking at another users page %>
+    <% else %>
+      <p>Become friends with <%= @user.name.split[0] %> to view their profile.</p>
+      <%= render 'friendships/initiate_request', friend: @user %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

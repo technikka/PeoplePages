@@ -1,37 +1,34 @@
-  <div>
-    <%= form.label :image, "Profile Photo" %>
-    <%= form.file_field :image %>
-  </div>
-  <div>
+<div class="grid grid-rows-8 gap-x-2 gap-y-1">
+
+    <%= form.label :image, "Photo", class: "row-start-1 col-start-1 justify-self-end" %>
+    <%= form.file_field :image, class: "row-start-1 col-start-2" %>
+
     <%= form.fields_for :user do |user_form| %>
-      <%= user_form.label :name %>
-      <%= user_form.text_field :name, value: current_user.name %>
+      <%= user_form.label :name, class: "row-start-2 col-start-1 justify-self-end" %>
+      <%= user_form.text_field :name, value: current_user.name, class: "pl-1 row-start-2 border-2 col-start-2" %>
     <% end %>
-  </div>
-  <div>
-    <%= form.label :current_city %>
-    <%= form.text_field :current_city %>
-  </div>
-  <div>
-    <%= form.label :hometown %>
-    <%= form.text_field :hometown %>
-  </div>
-  <div>
-    <%= form.label :workplace %>
-    <%= form.text_field :workplace %>
-  </div>
-  <div>
-    <%= form.label :websites %>
-    <%= form.text_field :websites %>
-  </div>
-  <div>
-    <%= form.label :social_links %>
-    <%= form.text_field :social_links %>
-  </div>
 
-  <%= form.submit "Save" %>
+    <%= form.label :current_city, class: "row-start-3 col-start-1 justify-self-end" %>
+    <%= form.text_field :current_city, class: "pl-1 row-start-3 border-2 col-start-2"  %>
 
-  <% if !current_user.profile.nil? %>
-    <%= link_to "exit", user_path(current_user) %>
-  <% end %>
+    <%= form.label :hometown, class: "row-start-4 col-start-1 justify-self-end" %>
+    <%= form.text_field :hometown, class: "pl-1 row-start-4 border-2 col-start-2"  %>
+
+    <%= form.label :workplace, class: "row-start-5 col-start-1 justify-self-end" %>
+    <%= form.text_field :workplace, class: "pl-1 row-start-5 border-2 col-start-2"  %>
+
+    <%= form.label :websites, class: "row-start-6 col-start-1 justify-self-end" %>
+    <%= form.text_field :websites, class: "pl-1 row-start-6 border-2 col-start-2"  %>
+
+
+    <%= form.label :social_links, class: "row-start-7 col-start-1 justify-self-end" %>
+    <%= form.text_field :social_links, class: "pl-1 row-start-7 border-2 col-start-2"  %>
+
+  	<%= form.submit "Save", class: "row-start-8, col-start-1 justify-self-end border-solid border-2 border-stone-200 p1 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+  
+  	<% if !current_user.profile.nil? %>
+  	  <%= link_to "exit", user_path(current_user), class: "row-start-8, col-start-2 underline decoration-sky-800 text-sky-800" %>
+  	<% end %>
+
+</div>
 

@@ -1,6 +1,4 @@
 <%= turbo_frame_tag 'profile_info' do %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
   <%= form_with model: [@user, @profile], method: :patch do |form| %>
     <%= render 'form', profile: @profile, user: @user, form: form %>
   <% end %>

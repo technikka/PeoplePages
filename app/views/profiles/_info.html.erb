@@ -1,15 +1,30 @@
-<%= turbo_frame_tag "profile_info" do %>
-  <div>
-    <h3><%= @user.name %></h3>
-    <%= render partial: 'profiles/display_image', locals: { user: @user, size: :small } %>
-    <p>Current City: <%= @user.profile.current_city %></p>
-    <p>Hometown: <%= @user.profile.hometown %></p>
-    <p>Workplace: <%= @user.profile.workplace %></p>
-    <p>Websites: <%= @user.profile.websites %></p>
-    <p>Social Links: <%= @user.profile.social_links %></p>
-  </div>
-
-  <% if current_user.id == @user.id %>
-  <%= link_to "Edit Profile", edit_user_profile_path(current_user) %>
+<div class="row-start-2 col-start-2 justify-self-start">
+  <%= turbo_frame_tag "profile_info" do %>
+    <div class="pb-2">
+      <div>
+        <%= image_tag('icons/location.png', class: "invert brightness-50 inline-block")%> Lives in
+        <strong><%= @user.profile.current_city %></strong>
+      </div>
+      <div>
+        <%= image_tag('icons/hometown.png', class: "invert brightness-50 inline-block")%> From
+        <strong><%= @user.profile.hometown %></strong>
+      </div>
+      <div>
+        <%= image_tag('icons/work.png', class: "invert brightness-50 inline-block")%> Employed with
+        <strong><%= @user.profile.workplace %></strong>
+      </div>
+      <div>
+        <%= image_tag('icons/web.png', class: "invert brightness-50 inline-block") %> Find me at
+        <strong><%= @user.profile.websites %></strong>
+      </div>
+      <div>
+        <%= image_tag('icons/social.png', class: "invert brightness-50 inline-block") %>  Social at
+        <strong><%= @user.profile.social_links %></strong>
+      </div>
+    </div>
+  
+    <% if current_user.id == @user.id %>
+    <%= link_to "Edit Profile", edit_user_profile_path(current_user), class: "underline decoration-sky-800 text-sky-800" %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
