@@ -21,6 +21,11 @@
           <%= render partial: 'likes/like', locals: { resource: comment } %>
         <% end %>
       <% end %>
+
+      <% if comment.user == current_user %>
+ 	      <%= link_to image_tag("icons/delete_outline.png"), comment_path(comment.id), title: 'Delete Comment', data: { turbo_confirm: "Are you sure you want to delete this comment?", turbo_method: :delete }, class: "invert brightness-60 hover:brightness-50 row-start-3 justify-self-center" %>
+    <% end %>
     </div>
   <% end %>
 <% end %>
+
