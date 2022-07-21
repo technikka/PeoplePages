@@ -1,39 +1,69 @@
-<h4>Your Friends:</h4>
-<% @active_friends.each do |friend| %>
-  <div>
-    <div class="h-10 w-10">
-      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
-    </div>
-    <%= link_to friend.name, user_path(friend) %>
-  </div>
-<% end %>
+<div class="grid justify-items-center m-4">
+  <div class="grid justify-items-center">
 
-<h4>Your Pending Requests</h4>
-<% @pending_friends.each do |friend| %>
-  <div>
-    <div class="h-10 w-10">
-      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
-    </div>
-    <%= link_to friend.name, user_path(friend) %>
-    <%= render 'cancel_request', friend: friend %>
-  </div>
-<% end %>
-
-
-<h4>Waiting for your approval</h4>
-<% @requests = User.friend_requests(current_user) %>
-<% if !@requests.empty? %>
-  <% @requests.each do |request| %>
-    <%= turbo_frame_tag 'accept_request' do %>
-      <% requester = request.user %>
-      <div>
-        <div class="h-10 w-10">
-      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
-    </div>
-        <%= link_to requester.name, user_path(requester) %>
-        <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester.id), data: { turbo_method: :post } %>
-        <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request),  data: { turbo_method: :delete } %>
+    <div class="grid w-full justify-items-center">
+      <h4 class="font-bold">Your Friends</h4>
+      <% if @active_friends.empty? %>
+          <p class="text-sm pt-2">Nothing to see here.</p>
+        <% end %>
+      <div class="justify-self-start mt-4">
+        <% @active_friends.each do |friend| %>
+          <div class="flex gap-3 pb-3">
+            <div class="h-10 w-10">
+              <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+            </div>
+            <%= link_to friend.name, user_path(friend), class: "self-center hover:text-sky-800"  %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  <% end %>
-<% end %>
+    </div>
+    
+    <div class="grid w-full justify-items-center">
+      <h4 class="font-bold mt-4">Your Pending Requests</h4>
+      <% if @pending_friends.empty? %>
+        <p class="text-sm pt-2">Nothing to see here.</p>
+      <% end %>
+      <div class="justify-self-start mt-4">
+        <% @pending_friends.each do |friend| %>
+          <div class="flex gap-3 pb-3">
+            <div class="h-10 w-10">
+              <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+            </div>
+            <%= link_to friend.name, user_path(friend), class: "self-center hover:text-sky-800"%>
+            <%= render 'cancel_request', friend: friend %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="grid w-full justify-items-center">
+      <h4 class="font-bold mt-4">Waiting for your approval</h4>
+
+      
+        <% @requests = User.friend_requests(current_user) %>
+        <% if @requests.empty? %>
+          <p class="text-sm pt-2">Nothing to see here.</p>
+        <% else %>
+          <div class="justify-self-start mt-4">
+            <% @requests.each do |request| %>
+              <%= turbo_frame_tag 'accept_request' do %>
+                <div class="flex gap-3 pb-3">
+
+                  <div class="h-10 w-10">
+                    <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
+                  </div>
+                  <%= link_to request.user.name, user_path(request.user), class: "self-center   hover:text-sky-800"%>
+
+                  <div class="flex items-center gap-2">
+                    <%= link_to "Accept Request", user_friendships_path(current_user, type:   :accept_request, requester: request.user.id), data: { turbo_method: :post },  class: "underline decoration-sky-800 text-sky-800 text-sm block" %>
+                    <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type:  :deny_request),  data: { turbo_method: :delete }, class: "underline  decoration-sky-800 text-sky-800 text-sm block" %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+     
+    </div>
+  </div>
+</div>

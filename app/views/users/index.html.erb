@@ -16,9 +16,9 @@
       <% @users.each do |user| %>
         <div class="flex gap-3 pb-3">
           <div class="h-10 w-10">
-            <%= render partial: 'profiles/display_image', locals: { user: user, size: :thumbnail }, class: "inline-block" %>
+            <%= render partial: 'profiles/display_image', locals: { user: user, size: :thumbnail } %>
           </div>
-          <%= link_to user.name, user_path(user), class: "inline-block, self-center hover:text-sky-800"  %>
+          <%= link_to user.name, user_path(user), class: "self-center hover:text-sky-800"  %>
         </div>
       <% end %>
     </div>

@@ -1,4 +1,6 @@
-<%= turbo_frame_tag 'friend_request' do  %>
-  <% requestee = @friend || friend %>
-  <%= link_to "Cancel Pending Request", user_friendship_path(requestee , current_user.friendships.find_by(friend_id: requestee.id).id), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800"  %>
-<% end %>
+<div class="flex items-center">
+  <%= turbo_frame_tag 'friend_request' do  %>
+    <% requestee = @friend || friend %>
+    <%= link_to "Cancel Pending Request", user_friendship_path(requestee , current_user.friendships.find_by(friend_id: requestee.id).id), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm block"  %>
+  <% end %>
+</div>
