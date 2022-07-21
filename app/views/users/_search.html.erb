@@ -1,19 +1,21 @@
 <%= turbo_frame_tag 'query' do %>
   <%= form_with url: '/search', method: :get do |form| %>
-    <%= form.text_field :query %>
-    <%= form.submit 'Search' %>
-  <% end %>
+          <%= form.text_field :query, class: "border-2 border-stone-200 my-4 shadow-inner shadow-stone-100" %>
+          <%= form.submit 'Search', class: "border-solid border-2 border-stone-200 p1 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+        <% end %>
 
-  <div class="query-result">
-    <% if !@query_results.empty? %>
+  <% if !@query_results.empty? %>
+    <div class="bg-sky-100 gap-3">
       <% @query_results.each do |user| %>
-        <div>
-          <%= render partial: 'profiles/display_image', locals: { user: user, size: :thumbnail } %>
-          <%= link_to user.name, user_path(user) %>
+        <div class="flex gap-3 mb-3 p-3">
+          <div class="h-10 w-10">
+            <%= render partial: 'profiles/display_image', locals: { user: user, size: :thumbnail} %>
+          </div>
+          <%= link_to user.name, user_path(user), class: "self-center hover:text-sky-800"  %>
         </div>
       <% end %>
-    <% else %>
-      <p>Friend not found. Try another search term.</p>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <p class="font-bold ">No Results. Try another search term.</p>
+  <% end %>
 <% end %>

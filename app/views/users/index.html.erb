@@ -3,7 +3,7 @@
     <h3 class="font-bold text-lg py-2">Find old friends or make new ones!</h3>
     <h4 class="pb-2">Search by name or email, or browse all PeoplePages users.</h4>
     
-    <div class="user-search">
+    <div class="grid w-full justify-items-center">
       <%= turbo_frame_tag 'query' do %>
         <%= form_with url: '/search', method: :get do |form| %>
           <%= form.text_field :query, class: "border-2 border-stone-200 my-4 shadow-inner shadow-stone-100" %>

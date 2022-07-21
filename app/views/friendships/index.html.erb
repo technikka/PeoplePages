@@ -1,7 +1,9 @@
 <h4>Your Friends:</h4>
 <% @active_friends.each do |friend| %>
   <div>
-    <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+    <div class="h-10 w-10">
+      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+    </div>
     <%= link_to friend.name, user_path(friend) %>
   </div>
 <% end %>
@@ -9,7 +11,9 @@
 <h4>Your Pending Requests</h4>
 <% @pending_friends.each do |friend| %>
   <div>
-    <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+    <div class="h-10 w-10">
+      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+    </div>
     <%= link_to friend.name, user_path(friend) %>
     <%= render 'cancel_request', friend: friend %>
   </div>
@@ -23,7 +27,9 @@
     <%= turbo_frame_tag 'accept_request' do %>
       <% requester = request.user %>
       <div>
-        <%= render partial: 'profiles/display_image', locals: { user: requester, size: :thumbnail } %>
+        <div class="h-10 w-10">
+      <%= render partial: 'profiles/display_image', locals: { user: friend, size: :thumbnail } %>
+    </div>
         <%= link_to requester.name, user_path(requester) %>
         <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: requester.id), data: { turbo_method: :post } %>
         <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request),  data: { turbo_method: :delete } %>
