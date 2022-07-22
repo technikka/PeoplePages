@@ -24,7 +24,7 @@
     <%= form.label :social_links, class: "row-start-7 col-start-1 justify-self-end" %>
     <%= form.text_field :social_links, class: "pl-1 row-start-7 border-2 col-start-2"  %>
 
-  	<%= form.submit "Save", class: "row-start-8, col-start-1 justify-self-end border-solid border-2 border-stone-200 p1 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+  	<%= form.submit "Save", class: "row-start-8, col-start-1 justify-self-end border-solid border-2 border-stone-200 p-0.5 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
   
   	<% if !current_user.profile.nil? %>
   	  <%= link_to "exit", user_path(current_user), class: "row-start-8, col-start-2 underline decoration-sky-800 text-sky-800" %>

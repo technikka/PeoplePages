@@ -12,24 +12,24 @@
 
   <body class="m-5">
     <% if user_signed_in?  %>
-      <nav class="grid grid-cols-9 gap-4 bg-stone-200">
+      <nav class="grid grid-cols-9 gap-4 items-center bg-stone-200">
 
         <div class="justify-self-center p-2 hover:rounded-b-lg hover:bg-amber-300">
-          <%= link_to "|* PP *|", posts_path  %>
+          <%= link_to image_tag("people_pages.svg", class: "h-8"), posts_path  %>
         </div>
-        <div class="justify-self-start p-2 hover:rounded-b-lg hover:bg-amber-300" >
+        <div class="h-full flex items-center justify-self-start p-2 hover:rounded-b-lg hover:bg-amber-300" >
           <%= link_to "Find Friends", users_path %>
         </div>
-        <div class="col-start-4 justify-self-end p-2 hover:rounded-b-lg hover:bg-amber-300">
+        <div class="h-full flex items-center col-start-4 justify-self-end p-2 hover:rounded-b-lg hover:bg-amber-300">
           <%= link_to current_user.name, user_profile_path(current_user) %>
         </div>
-        <div class="col-start-5 justify-self-center p-2 hover:rounded-b-lg hover:bg-amber-300">
+        <div class="h-full flex items-center col-start-5 justify-self-center p-2 hover:rounded-b-lg hover:bg-amber-300">
           <%= link_to "Friends", user_friendships_path(current_user) %>
         </div>
-        <div class="col-start-6 col-span-2 justify-self-start p-2 hover:rounded-b-lg hover:bg-amber-300">
+        <div class="h-full flex items-center col-start-6 col-span-2 justify-self-start p-2 hover:rounded-b-lg hover:bg-amber-300">
           <%= link_to "Notifications", notifications_path %>
         </div>
-        <div class="justify-self-center col-start-9 p-2 hover:rounded-b-lg hover:bg-amber-300">
+        <div class="h-full flex items-center justify-self-center col-start-9 p-2 hover:rounded-b-lg hover:bg-amber-300">
           <%= link_to "Sign Out", destroy_user_session_path %>
         </div>
 

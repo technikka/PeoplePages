@@ -1,5 +1,7 @@
-<div class=" grid justify-items-center">
-  <h2 class="font-bold pb-3">Log in</h2>
+<div class=" grid justify-items-center m-14">
+  <%= image_tag('people_pages.svg', class: "h-16 w-16") %>
+
+  <h2 class="font-bold py-3">Log in</h2>
 
   <div class="p-5 bg-stone-200 shadow-md">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
