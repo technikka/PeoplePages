@@ -1,6 +1,6 @@
 <div class="row-start-2 col-start-2 justify-self-start">
   <%= turbo_frame_tag "profile_info" do %>
-    <div class="pb-2">
+    <div class="pb-2 flex flex-col">
       <div>
         <%= image_tag('icons/location.png', class: "invert brightness-50 inline-block")%> Lives in
         <strong><%= @user.profile.current_city %></strong>

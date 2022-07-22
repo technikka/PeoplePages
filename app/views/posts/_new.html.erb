@@ -1,6 +1,6 @@
 <div class="h-14 grid place-items-center py-2 mt-4">
   <%= form_with model: Post do |form| %>
-      <%= form.text_area :body, size: '60X20',  placeholder: 'What\'s on your mind?', class: "drop-shadow-md text-sm align-middle p-2 relative z-50 max-w-full" %>
+      <%= form.text_area :body, size: '60X20',  placeholder: 'What\'s on your mind?', class: "drop-shadow-md text-sm align-middle p-2 relative z-50 max-w-full outline-none focus:border-2 focus:border-sky-800" %>
       <%= form.submit 'Post', class: "border-solid border-2 border-stone-200 p-0.5  ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm relative z-50" %>
   <% end %>
 </div>
