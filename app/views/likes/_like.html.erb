@@ -11,7 +11,7 @@
     <div class="inline-block">Be the first to like this!&nbsp;&nbsp;</div>
   <% end %>
   <div class="inline-block">
-    <%= link_to image_tag("icons/like_outline.png"), likes_path(resource: {type: resource.class, id: resource.id }), data: { turbo_method: :post }, title: 'Like', class: "invert brightness-100  hover:brightness-50" %>
+    <%= link_to image_tag("icons/like_outline.png"), likes_path(resource: {type: resource.class, id: resource.id }), data: { turbo_method: :post }, title: 'Like', class: "invert brightness-50 hover:brightness-100" %>
   </div>
   
 <% end %>
