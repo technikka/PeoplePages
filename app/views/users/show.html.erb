@@ -39,7 +39,6 @@
       
       <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete }, class: " row-start-2 col-start-2 justify-self-start self-end underline decoration-sky-800 text-sky-800" %>
 
-     
       <%= render partial: 'posts/friend', locals: { friend: @user } %>
   
       <div class="row-start-4 col-span-full justify-self-center">
