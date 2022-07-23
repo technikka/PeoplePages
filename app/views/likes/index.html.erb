@@ -1,8 +1,19 @@
-<h4>Users who have liked this</h4>
-<%= link_to "<- back", :back  %> <br><br>
-
-<% @likes.each do |like| %>
-  <li>
-    <%= link_to like.user.name, user_path(like.user) %>
-  </li>
-<% end %>
+<div class="grid justify-items-center mt-10">
+  <div class="bg-stone-100 shadow-inner px-8 py-4">
+    <div class="flex flex-col gap-4">
+      <%= link_to "back", :back, class: "underline decoration-sky-800 text-sky-800"  %>
+      <h4 class="self-center text-lg font-bold pb-4">Likes</h4>
+    </div>
+    
+    <div>
+      <% @likes.each do |like| %>
+        <div class="flex gap-3 pb-3">
+          <div class="h-10 w-10">
+            <%= render partial: 'profiles/display_image', locals: { user: like.user, size: :thumbnail } %>
+          </div>
+          <%= link_to like.user.name, user_path(like.user), class: "self-center hover:text-sky-800" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

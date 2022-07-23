@@ -1,8 +1,8 @@
-<div class="grid justify-items-center m-4">
-  <div class="grid justify-items-center">
+<div class="grid justify-items-center mt-10 mb-4">
+  <div class="grid justify-items-center shadow-inner p-4">
 
     <div class="grid w-full justify-items-center">
-      <h4 class="font-bold">Your Friends</h4>
+      <h4 class="font-bold text-lg">Your Friends</h4>
       <% if @active_friends.empty? %>
           <p class="text-sm pt-2">Nothing to see here.</p>
         <% end %>
@@ -19,7 +19,7 @@
     </div>
     
     <div class="grid w-full justify-items-center">
-      <h4 class="font-bold mt-4">Your Pending Requests</h4>
+      <h4 class="font-bold text-lg mt-4">Your Pending Requests</h4>
       <% if @pending_friends.empty? %>
         <p class="text-sm pt-2">Nothing to see here.</p>
       <% end %>
@@ -37,7 +37,7 @@
     </div>
     
     <div class="grid w-full justify-items-center">
-      <h4 class="font-bold mt-4">Waiting for your approval</h4>
+      <h4 class="font-bold text-lg mt-4">Waiting for your approval</h4>
 
       
         <% @requests = User.friend_requests(current_user) %>

@@ -1,69 +1,94 @@
-<h4>Notifications</h4>
-
-<%= form_with model: Notification, method: :delete do |form| %>
-
-  <% if @profile_posts && !@profile_posts.empty? %>
-    <% @profile_posts.each do |post| %>
-      <div>
-        <%= form.check_box post.notification.id %>
-        <%= render partial: 'profiles/display_image', locals: { user: post.user, size: :thumbnail } %>
-        <%= link_to post.user.name, user_path(post.user) %>   
-            posted on your profile. 
-        <%= link_to "View", post_path(post) %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <% if @comments && !@comments.empty? %>
-    <% @comments.each do |comment| %>
-      <div>
-        <%= form.check_box comment.notification.id %>
-        <%= render partial: 'profiles/display_image', locals: { user: comment.user, size: :thumbnail } %>
-        <%= link_to comment.user.name, user_path(comment.user) %>
-          commented on your post.
-        <%= link_to "View", post_path(comment.post) %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <% if @likes && !@likes.empty? %>
-    <% @likes.each do |like| %>
-      <div>
-        <%= form.check_box like.notification.id %>
-        <%= render partial: 'profiles/display_image', locals: { user: like.user, size: :thumbnail } %>
-        <%= link_to like.user.name, user_path(like.user) %>
-          likes your
-        <% if like.comment %>
-          <%= 'comment.' %>
+<div class="mt-10 grid justify-items-center">
+  <div class="shadow-inner p-4">
+    <div class="grid justify-items-center">
+      <h4 class="text-lg font-bold pb-4">Notifications</h4>
+      <%= form_with model: Notification, method: :delete do |form| %>
+          <% if @profile_posts && !@profile_posts.empty? %>
+              <% @profile_posts.each do |post| %>
+                <div class="flex flex-rows gap-4 py-1 items-center">
+                  <%= form.check_box post.notification.id %>
+                  <div class="h-10 w-10">
+                    <%= render partial: 'profiles/display_image', locals: { user: post.user, size: :thumbnail } %>
+                  </div>
+                  <div class="flex gap-2">
+                    <%= link_to post.user.name, user_path(post.user), class: "hover:text-sky-800 font-bold" %>   
+                        posted on your profile. 
+                  </div>
+                  <%= link_to "View", post_path(post), class: "underline decoration-sky-800 text-sky-800 text-sm" %>
+                </div>
+            <% end %>
+          <% end %>
+    
+        <div>
+          <% if @comments && !@comments.empty? %>
+            <% @comments.each do |comment| %>
+              <div class="flex flex-rows gap-4 py-1 items-center">
+                <%= form.check_box comment.notification.id %>
+                <div class="h-10 w-10">
+                  <%= render partial: 'profiles/display_image', locals: { user: comment.user, size: :thumbnail } %>
+                </div>
+                <div class="flex gap-2">
+                	<%= link_to comment.user.name, user_path(comment.user), class: "hover:text-sky-800 font-bold" %>
+                	  commented on your post.
+                </div>
+                <%= link_to "View", post_path(comment.post), class: "underline decoration-sky-800 text-sky-800 text-sm" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    
+        <div>
+          <% if @likes && !@likes.empty? %>
+            <% @likes.each do |like| %>
+              <div class="flex flex-rows gap-4 py-1 items-center">
+                <%= form.check_box like.notification.id %>
+                <div class="h-10 w-10">
+                  <%= render partial: 'profiles/display_image', locals: { user: like.user, size: :thumbnail } %>
+                </div>
+                <div class="flex gap-2">
+                  <%= link_to like.user.name, user_path(like.user), class: "hover:text-sky-800 font-bold" %>
+                    likes your
+                  <% if like.comment %>
+                    <%= 'comment.' %>
+                  <% else %>
+                    <%= 'post.' %>
+                  <% end %>
+                </div>
+                <%= link_to "View", post_path(like.post || like.comment.post), class: "underline decoration-sky-800 text-sky-800 text-sm"%>
+              </div> <br>
+            <% end %>
+          <% end %>
+        </div>
+    
+        <% if @profile_posts.empty? && @likes.empty? && @comments.empty?%>
+          <h5>Nothing to see here. Check back later.</h5>
         <% else %>
-          <%= 'post.' %>
+          <%= form.submit 'Delete selected notifications', class: "border-solid border-2 border-stone-200 p-0.5 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
         <% end %>
-        <%= link_to "View", post_path(like.post || like.comment.post)   %>
-      </div> <br>
-    <% end %>
-  <% end %>
-
-  <% if @profile_posts.empty? && @likes.empty? && @comments.empty? 
-  %>
-    <h5>Nothing to see here. Check back later.</h5>
-  <% else %>
-    <%= form.submit 'Delete selected notifications' %>
-  <% end %>
-<% end %>
-
-<h4>Friend Requests</h4>
-
-<% if @friend_requests && !@friend_requests.empty? %>
-  <% @friend_requests.each do |request| %>
-    <div>
-      <%= turbo_frame_tag 'accept_request' do %>
-        <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
-        <%= link_to request.user.name, user_path(request.user) %>
-         <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post } %>
-        <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete } %>
+      <% end %>
+    
+    </div>
+  
+    <div class="grid justify-items-center">
+      <h4 class="text-lg font-bold mt-8 pb-4">Friend Requests</h4>
+      <% if @friend_requests && !@friend_requests.empty? %>
+        <% @friend_requests.each do |request| %>
+          
+            <%= turbo_frame_tag 'accept_request' do %>
+              <div class="flex flex-rows gap-4 py-1 items-center">
+                <div class="h-10 w-10">
+                  <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
+                </div>
+                <%= link_to request.user.name, user_path(request.user), class: "hover:text-sky-800 font-bold" %>
+                 <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
+                <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
+              <% end %>
+              </div>
+          
+        <% end %>
+      <% else %>
+        <h5>Nothing to see here. Check back later.</h5>
       <% end %>
     </div>
-  <% end %>
-<% else %>
-  <h5>Nothing to see here. Check back later.</h5>
-<% end %>
+  </div>
+</div>

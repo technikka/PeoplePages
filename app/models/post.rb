@@ -5,8 +5,6 @@ class Post < ApplicationRecord
   validates :body, length: { in: 3..12_000 }
   has_one :notification, dependent: :destroy
 
-  # has_many :notifications, through: :comments
-
   default_scope { order(updated_at: :desc) }
 
   after_create { create_notification unless friend_id.nil? }
