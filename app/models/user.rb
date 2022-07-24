@@ -15,11 +15,11 @@ class User < ApplicationRecord
   end
 
   def active_friends
-    friends.includes(:friends, :posts).select { |f| f.friends.include?(self) }
+    friends.includes(:friends, profile: [image_attachment: [:blob]]).select { |f| f.friends }
   end
 
   def pending_friends
-    friends.includes(:friends).reject { |f| f.friends.include?(self) }
+    friends.includes(:friends, profile: [image_attachment: [:blob]]).reject { |f| f.friends }
   end
 
   # helpers for notifications:

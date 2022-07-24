@@ -12,6 +12,6 @@ class Post < ApplicationRecord
 
   # Posts appropriate to be shown on a user's page
   def self.user_fitted(user)
-    where(friend_id: user.id).or(where(user_id: user.id, friend_id: nil))
+    self.includes({ user: [profile: [image_attachment: [:blob]]] }, :likes).where(friend_id: user.id).or(where(user_id: user.id, friend_id: nil))
   end
 end

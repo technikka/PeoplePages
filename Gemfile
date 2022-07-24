@@ -61,6 +61,11 @@ gem 'cssbundling-rails', '~> 1.1', '>= 1.1.1'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'pry-byebug', '~> 3.9', platforms: %i[ mri mingw x64_mingw ]
+
+
+
+  # help to kill N+1 queries and unused eager loading.
+  # gem 'bullet', '~> 7.0', '>= 7.0.2'
 end
 
 group :development do

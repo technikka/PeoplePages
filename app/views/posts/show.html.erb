@@ -24,7 +24,7 @@
       <div class="pt-1 pl-3"><%= @post.comments.size %> comments</div>
     
     <%= turbo_frame_tag 'comment', class: "divide-y-2 pl-3" do %>
-      <% @post.comments.includes(:user).each do |comment| %>
+      <% @post.comments.each do |comment| %>
         <%= render partial: 'comments/comment', locals: { comment: comment } %>
       <% end %>
     <% end %>

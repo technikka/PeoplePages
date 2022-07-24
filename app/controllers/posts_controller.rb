@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
-
   def index
     ids = current_user.active_friends.map(&:id)
     ids << current_user.id
-    # friend_id indicates a personal post (not for timeline)
-    @posts = Post.where(user_id: [ids], friend_id: nil)
+    # friend_id indicates a personal post (a post on a friends page)
+    @posts = Post.includes(:likes, comments: [:likes], user: [profile: [image_attachment: [:blob]]]).where(user_id: [ids], friend_id: nil)
   end
 
   def show

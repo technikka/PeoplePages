@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    @users = User.includes(profile: [image_attachment: [:blob]]).all
   end
 
   def show
