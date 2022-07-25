@@ -25,6 +25,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find_by(user_id: params[:user_id])
 
     if @profile.update(edited_profile_params) && @user.update({ name: edited_profile_params[:user_attributes][:name] })
+
       redirect_to user_path(current_user)
     else
       render :edit, status: :unprocessable_entity

@@ -1,6 +1,6 @@
 <% if user.profile && user.profile.image.attached? %>
   <% if size == :small %>
-    <%= link_to image_tag(user.profile.image_as_small, class: "h-full object-cover"), user.profile.image %>
+    <%= link_to image_tag(user.profile.image_as_small), user.profile.image %>
   <% else %>
     <%= link_to image_tag(user.profile.image_as_thumbnail, class: "h-full w-full  max-h-10 object-cover"), user_path(user) %>
   <% end %>
