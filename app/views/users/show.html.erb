@@ -49,12 +49,21 @@
   
     <%# current_user looking at a user who has requested friendship %>
     <% elsif @user.pending_friends.include?(current_user) %>
-      <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post } %>
-      <%= link_to "Deny Request", user_friendship_path(current_user, @user.id, type: :deny_request), data: { turbo_method: :delete } %>
+      <div class="justify-self-start">
+        <p class="pb-1"><%= @user.name.split[0] %> has requested friendship with you.</p>
+        <p class="text-sm pb-2">Accept to view their profile.</p>
+
+        <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: @user.id), data: { turbo_method: :post }, class: "underline decoration-sky-800 text-sky-800 pr-2"  %>
+
+        <%= link_to "Deny Request", user_friendship_path(current_user, @user.id, type: :deny_request), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800"%>
+      </div>
   
     <%# current_user looking at user they've requested friendship %>
     <% elsif current_user.pending_friends.include?(@user) %>
-      <%= render 'friendships/cancel_request', friend: @user %>
+      <div class = "justify-self-start">
+        <p class="pb-2">You've requested friendship.</p>
+        <%= render 'friendships/cancel_request', friend: @user %>
+      </div>
   
     <%# current_user looking at another users page %>
     <% else %>

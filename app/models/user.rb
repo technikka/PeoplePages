@@ -14,12 +14,15 @@ class User < ApplicationRecord
     posts_from_friends.destroy_all
   end
 
+  # friends collection includes other users who are mutual_friends (see Friendship #mutual_friends)
+  # AND other users whom current_user has requested friendship.
+
   def active_friends
-    friends.includes(:friends, profile: [image_attachment: [:blob]]).select { |f| f.friends }
+    friends.includes(:friends, profile: [image_attachment: [:blob]]).select { |f| f.friends.include?(self) }
   end
 
   def pending_friends
-    friends.includes(:friends, profile: [image_attachment: [:blob]]).reject { |f| f.friends }
+    friends.includes(:friends, profile: [image_attachment: [:blob]]).reject { |f| f.friends.include?(self) }
   end
 
   # helpers for notifications:
