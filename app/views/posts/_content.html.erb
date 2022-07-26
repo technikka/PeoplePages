@@ -14,7 +14,7 @@
   </div>
 
   <div class= "col-span-full flex items-center pl-3">
-    <%= post.body %>
+    <%= sanitize(post.body.gsub(/\n/, "<br/>")) %>
   </div>
 
   <% if post.updated_at != post.created_at %>

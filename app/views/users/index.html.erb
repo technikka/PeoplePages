@@ -6,7 +6,7 @@
     <div class="grid w-full justify-items-center">
       <%= turbo_frame_tag 'query' do %>
         <%= form_with url: '/search', method: :get do |form| %>
-          <%= form.text_field :query, class: "border-2 border-stone-200 my-4 shadow-inner shadow-stone-100" %>
+          <%= form.text_field :query, class: "border-2 border-stone-200 my-4 shadow-inner shadow-stone-100 outline-none focus:border-2 focus:border-sky-800" %>
           <%= form.submit 'Search', class: "border-solid border-2 border-stone-200 p-0.5 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
         <% end %>
       <% end %>
