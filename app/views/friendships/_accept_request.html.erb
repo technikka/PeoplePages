@@ -1,6 +1,6 @@
-<%= turbo_frame_tag 'accept_request' do %> 
+<%= turbo_frame_tag "accept_#{@friend.id}" do %> 
   <div>
     <p>You and 
-    <strong><%= link_to @friend.name, user_path(@friend), data: { turbo_frame: '_top', class: "hover:text-sky-800" } %></strong> are now friends!</p>
+    <strong><%= link_to @friend.name, user_path(@friend), data: { turbo_frame: "_top", class: "hover:text-sky-800" } %></strong> are now friends!</p>
   </div>
 <% end %>

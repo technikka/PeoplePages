@@ -74,14 +74,14 @@
       <% if @friend_requests && !@friend_requests.empty? %>
         <% @friend_requests.each do |request| %>
           
-            <%= turbo_frame_tag 'accept_request' do %>
+            <%= turbo_frame_tag "accept_#{@friend.id}" do %>
               <div class="flex flex-rows gap-4 py-1 items-center">
                 <div class="h-10 w-10">
                   <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
                 </div>
                 <%= link_to request.user.name, user_path(request.user), class: "hover:text-sky-800 font-bold" %>
                  <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
-                <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
+                <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_frame: "_top", turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
               <% end %>
               </div>
           
