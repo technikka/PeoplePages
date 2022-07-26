@@ -35,7 +35,7 @@
     <%# current_user looking at a friends page %>
     <% if current_user.active_friends.include?(@user) %>
   
-      <%= render partial: 'profiles/info' %>
+      <%= render partial: 'profiles/info' if @user.profile %>
       
       <%= link_to "Unfriend", user_friendship_path(@user, current_user.friendships.find_by(friend_id: @user.id).id, type: :unfriend, friend: @user), data: { turbo_method: :delete }, class: " row-start-2 col-start-2 justify-self-start self-end underline decoration-sky-800 text-sky-800" %>
 
