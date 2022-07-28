@@ -22,7 +22,7 @@
     <% end %>
   
     <%= turbo_frame_tag "post_#{post.id}", class: "row-start-4 pl-3 grid grid-rows-auto col-span-full gap-4 divide-y-2" do %>
-      <%= render 'comments/preview', post: post %>
+      <%= render partial: 'comments/preview', locals: { post: post } %>
     <% end %>
   
     <% @num_comments = post.comments.size %>
@@ -31,8 +31,7 @@
         <%= link_to "#{post.comments.size - 3} more comment#{'s' if @num_comments > 4}.", post_path(post) %>
       </div>
     <% end %>
-    
-  
+
     <div class="row-start-7 col-span-full pl-3 py-2">
       <%= render partial: 'comments/form', locals: { post: post} %>
     </div>

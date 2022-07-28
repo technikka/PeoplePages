@@ -1,25 +1,39 @@
-<div class="row-start-2 col-start-2 justify-self-start h-48">
+<div class="row-start-2 col-start-2 justify-self-start h-64">
   <%= turbo_frame_tag "profile_info" do %>
     <div class="pb-2 flex flex-col">
       <div>
-        <%= image_tag('icons/location.png', class: "invert brightness-50 inline-block")%> Lives in
-        <strong><%= @user.profile.current_city %></strong>
+        <% if !@user.profile.current_city.empty? %>
+          <%= image_tag('icons/location.png', class: "invert brightness-50 inline-block")%> Lives in
+          <strong><%= @user.profile.current_city %></strong>
+        <% end %>
       </div>
+
       <div>
-        <%= image_tag('icons/hometown.png', class: "invert brightness-50 inline-block")%> From
-        <strong><%= @user.profile.hometown %></strong>
+        <% if !@user.profile.hometown.empty? %>
+          <%= image_tag('icons/hometown.png', class: "invert brightness-50 inline-block")%> From
+          <strong><%= @user.profile.hometown %></strong>
+        <% end %>
       </div>
+
       <div>
-        <%= image_tag('icons/work.png', class: "invert brightness-50 inline-block")%> Employed with
-        <strong><%= @user.profile.workplace %></strong>
+        <% if !@user.profile.workplace.empty? %>
+          <%= image_tag('icons/work.png', class: "invert brightness-50 inline-block")%> Employed with
+          <strong><%= @user.profile.workplace %></strong>
+        <% end %>
       </div>
+
       <div>
-        <%= image_tag('icons/web.png', class: "invert brightness-50 inline-block") %> Find me at
-        <strong><%= @user.profile.websites %></strong>
+        <% if !@user.profile.websites.empty? %>
+          <%= image_tag('icons/web.png', class: "invert   brightness-50 inline-block") %> Find me at
+          <strong><%= @user.profile.websites %></strong>
+        <% end %>
       </div>
+
       <div>
-        <%= image_tag('icons/social.png', class: "invert brightness-50 inline-block") %>  Social at
-        <strong><%= @user.profile.social_links %></strong>
+        <% if !@user.profile.social_links.empty? %>
+          <%= image_tag('icons/social.png', class: "invert brightness-50 inline-block") %>  Social at
+          <strong><%= @user.profile.social_links %></strong>
+        <% end %>
       </div>
     </div>
   

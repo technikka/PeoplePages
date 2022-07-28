@@ -73,8 +73,7 @@
       <h4 class="text-lg font-bold mt-8 pb-4">Friend Requests</h4>
       <% if @friend_requests && !@friend_requests.empty? %>
         <% @friend_requests.each do |request| %>
-          
-            <%= turbo_frame_tag "accept_#{@friend.id}" do %>
+            <%= turbo_frame_tag "accept_#{request.friend.id}" do %>
               <div class="flex flex-rows gap-4 py-1 items-center">
                 <div class="h-10 w-10">
                   <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
