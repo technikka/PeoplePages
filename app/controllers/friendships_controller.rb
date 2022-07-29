@@ -18,8 +18,15 @@ class FriendshipsController < ApplicationController
     if params[:type] == 'accept_request'
       @friend = User.find(params[:requester])
       @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
-      # redirect_to request.referrer, status: :see_other
-      render partial: 'accept_request'
+
+      # if accepting from requester's page:
+      if request.referer.include?(@friend.id.to_s) &&
+         !request.referer.include?('friendships') &&
+         !request.referer.include?('notifications')
+        redirect_to request.referrer, status: :see_other
+      else
+        render partial: 'accept_request'
+      end
     else
       @friend = User.find(params[:id] || params[:user_id])
       @friendship = Friendship.create(user_id: current_user.id, friend_id: @friend.id)
@@ -32,8 +39,15 @@ class FriendshipsController < ApplicationController
       friendship = Friendship.find(params[:id])
       @requester = friendship.user
       friendship.destroy
-      # redirect_to request.referrer, status: :see_other
-      render partial: 'deny_request'
+
+      # if denying request from requester's page:
+      if request.referer.include?(@requester.id.to_s) &&
+         !request.referer.include?('friendships') &&
+         !request.referer.include?('notifications')
+        redirect_to request.referrer, status: :see_other
+      else
+        render partial: 'deny_request'
+      end
 
     elsif params[:type] == 'unfriend'
       @user_friendship = Friendship.find(params[:id])
