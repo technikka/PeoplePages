@@ -37,7 +37,7 @@
           <% end %>
         </div>
     
-        <div>
+        
           <% if @likes && !@likes.empty? %>
             <% @likes.each do |like| %>
               <div class="flex flex-rows gap-4 py-1 items-center">
@@ -55,39 +55,43 @@
                   <% end %>
                 </div>
                 <%= link_to "View", post_path(like.post || like.comment.post), class: "underline decoration-sky-800 text-sky-800 text-sm"%>
-              </div> <br>
+              </div>
             <% end %>
           <% end %>
-        </div>
-    
+       
         <% if @profile_posts.empty? && @likes.empty? && @comments.empty?%>
           <h5 class="text-sm">Nothing to see here. Check back later.</h5>
         <% else %>
-          <%= form.submit 'Delete selected notifications', class: "border-solid border-2 border-stone-200 p-0.5 ml-2 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
+          <%= form.submit 'Delete selected notifications', class: "border-solid border-2 border-stone-200 p-0.5 ml-2 mt-4 bg-stone-200 hover:bg-amber-300 hover:cursor-pointer rounded-sm" %>
         <% end %>
       <% end %>
     
     </div>
   
-    <div class="grid justify-items-center">
+    <div class="grid">
       <h4 class="text-lg font-bold mt-8 pb-4">Friend Requests</h4>
-      <% if @friend_requests && !@friend_requests.empty? %>
         <% @friend_requests.each do |request| %>
-            <%= turbo_frame_tag "accept_#{request.friend.id}" do %>
-              <div class="flex flex-rows gap-4 py-1 items-center">
+
+            <%= turbo_frame_tag "incoming_request_#{request.user.id}" do %>
+
+              <div class="flex flex-row gap-4 py-1 items-center">
                 <div class="h-10 w-10">
                   <%= render partial: 'profiles/display_image', locals: { user: request.user, size: :thumbnail } %>
                 </div>
+
                 <%= link_to request.user.name, user_path(request.user), class: "hover:text-sky-800 font-bold" %>
+
                  <%= link_to "Accept Request", user_friendships_path(current_user, type: :accept_request, requester: request.user), data: { turbo_method: :post }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
-                <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_frame: "_top", turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
-              <% end %>
+
+                <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request), data: { turbo_method: :delete }, class: "underline decoration-sky-800 text-sky-800 text-sm"  %>
+              
               </div>
-          
+            <% end %>
         <% end %>
-      <% else %>
-        <h5 class="text-sm">Nothing to see here. Check back later.</h5>
-      <% end %>
+
+        <% if @friend_requests.empty? %>
+          <h5 class="text-sm">Nothing to see here. Check back later.</h5>
+        <% end %>
     </div>
   </div>
 </div>

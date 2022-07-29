@@ -24,8 +24,7 @@
 
       <% if comment.user == current_user %>
  	      <%= link_to image_tag("icons/delete_outline.png"), comment_path(comment.id), title: 'Delete Comment', data: { turbo_method: :delete }, class: "invert brightness-50 hover:brightness-100 row-start-3 justify-self-center" %>
-    <% end %>
+      <% end %>
     </div>
   <% end %>
 <% end %>
-

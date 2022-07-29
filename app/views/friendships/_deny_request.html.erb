@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "incoming_request_#{@requester.id}" do %>
+  <div>
+    <p>Not today,
+    <strong><%= link_to @requester.name, user_path(@requester), data: { turbo_frame: "_top", class: "hover:text-sky-800" } %></strong>!</p>
+  </div>
+<% end %>

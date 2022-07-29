@@ -29,14 +29,19 @@ class FriendshipsController < ApplicationController
 
   def destroy
     if params[:type] == 'deny_request'
-      Friendship.find(params[:id]).destroy
-      redirect_to request.referrer, status: :see_other
+      friendship = Friendship.find(params[:id])
+      @requester = friendship.user
+      friendship.destroy
+      # redirect_to request.referrer, status: :see_other
+      render partial: 'deny_request'
+
     elsif params[:type] == 'unfriend'
       @user_friendship = Friendship.find(params[:id])
       @friend_friendship = Friendship.find_by(user_id: params[:friend], friend_id: current_user.id)
       @user_friendship.destroy
       @friend_friendship.destroy
       redirect_to request.referrer, status: :see_other
+
     else
       @friend = User.find(params[:user_id]) if params[:user_id]
       Friendship.find(params[:id]).destroy

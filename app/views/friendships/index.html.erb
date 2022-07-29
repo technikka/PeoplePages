@@ -46,7 +46,7 @@
           <div class="justify-self-start mt-4">
             <% @requests.each do |request| %>
 
-              <%= turbo_frame_tag "accept_#{request.user.id}" do %>
+              <%= turbo_frame_tag "incoming_request_#{request.user.id}" do %>
                 <div class="flex gap-3 pb-3">
 
                   <div class="h-10 w-10">
@@ -57,7 +57,7 @@
                   <div class="flex items-center gap-2">
                     <%= link_to "Accept Request", user_friendships_path(current_user, type:   :accept_request, requester: request.user.id), data: { turbo_method: :post },  class: "underline decoration-sky-800 text-sky-800 text-sm block" %>
                     
-                    <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type:  :deny_request),  data: { turbo_frame: "_top", turbo_method: :delete }, class: "underline  decoration-sky-800 text-sky-800 text-sm block" %>
+                    <%= link_to "Deny Request", user_friendship_path(current_user, request.id, type: :deny_request),  data: { turbo_method: :delete }, class: "underline  decoration-sky-800 text-sky-800 text-sm block" %>
                   </div>
                 </div>
               <% end %>

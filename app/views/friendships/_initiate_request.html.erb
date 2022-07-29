@@ -1,4 +1,4 @@
 <% @requester = @friend || friend %>
-<%= turbo_frame_tag "accept_#{@requester.id}" do %>
+<%= turbo_frame_tag "request_#{@requester.id}" do %>
   <%= link_to "Add Friend", user_friendships_path(@requester), data: { turbo_method: :post }, class: "underline decoration-sky-800 text-sky-800" %>
 <% end %>
