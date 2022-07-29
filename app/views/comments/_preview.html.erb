@@ -28,3 +28,10 @@
     </div>
   <% end %>
 <% end %>
+
+<% @num_comments = post.comments.size %>
+<% if @num_comments > 3 %>
+  <div class="row-start-4 pl-3 py-1 underline decoration-sky-800 text-sky-800">
+    <%= link_to "#{post.comments.size - 3} more comment#{'s' if @num_comments > 4}.",post_path(post) %>
+  </div>
+<% end %>
