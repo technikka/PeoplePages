@@ -1,6 +1,6 @@
 <% post.comments.includes(:user).last(3).each do |comment| %>
   <% if comment %>
-    <div class="grid grid-rows-3">
+    <div class="grid grid-rows-3" id="<%= "comment_#{comment.id}" %>">
 
       <div class="row-start-1 flex items-center pt-2">
         <div class="h-7 w-7 inline-block">
