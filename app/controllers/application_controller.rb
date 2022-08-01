@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    user_path(current_user)
+    # new user who hasn't edited their profile info
+    if current_user.profile.nil? && ((Date.today - 7.days)..Date.today).include?(current_user.created_at.to_date)
+      user_path(current_user)
+    else
+      posts_path
+    end
   end
 
   protected

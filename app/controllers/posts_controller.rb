@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :require_login
+
   def index
     ids = current_user.active_friends.map(&:id)
     ids << current_user.id
@@ -48,5 +50,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:body, :friend_id)
+  end
+
+  def require_login
+    redirect_to new_user_session_path unless user_signed_in?
   end
 end
