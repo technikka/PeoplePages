@@ -2,6 +2,8 @@
 
 This is my final project for the Rails course over at [The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-rails-final-project). The goal was to implement the core user functionality of Facebook: users, profiles, posts, news feed, "friending" and "liking". A project this feature-heavy could have consumed me for months but I was only able to allow four weeks, and a fifth week spent debugging. This is what I was able to complete in that time, which was plenty to achieve my main goals. 
 
+
+
 ## What this project is lacking, or, Notes on curious behavior
 
 * Error handeling-- because all my objects with validations are interacted with inside of a Turbo Frame or Stream, this complicated getting error messages to the user due to no redirect occurring. My understanding is that at this stage Turbo cannot handle 422 response errors and I ran out of time to implement an alternate solution. This causes undesirable behavior in a couple of cases, such as in submitting an empty post or comment.  
@@ -13,7 +15,8 @@ This is my final project for the Rails course over at [The Odin Project](https:/
 * Testing-- Something I suspect I could have greatly benefited from but have not learned yet.
 
 
-## Features and technologies new 
+
+## Newly acquired tools and technologies for this project
 
 * Turbo, a component of the Hotwire technologies-- I put a lot of time into experimenting and understanding Frames and Streams, made difficult by the lack of documentation at this time for using these new tools. I am happy to see the fruit of this labor: posts and comments append or update beautifully within a stream and, all "friending" and "liking" functionality operates within a frame for efficient user management of these resources. I am not at all sure how scalable my approaches to these tools are, but i'm decently comfortable using them now.
 
@@ -23,10 +26,13 @@ This is my final project for the Rails course over at [The Odin Project](https:/
 
 * Tailwind CSS-- I had recently become curious about this CSS framework, seeing it as a potentially handy tool for quick styling anywhere styling isn't involved in the main goals of the project. I decided this project was a great opportunity to give it a go. I found it incredibly easy to get going with and nice to use. I'd decide what css I'd like to apply to a given element and then look up Tailwind's keywords for it, which are intuitive enough that quickly I was pulling these keywords from memory. I did relish not having to switch between files while styling.
 
+
+
 ### This project can serve as a future example for
 
 * Using PostgreSQL for my database from the beginning, as opposed to the default SQLite3.
 * Configuring Devise to play nicely with Turbo. (See local: Notes/configuring_devise)
+
 
 
 ### Additional Reflections
@@ -36,6 +42,8 @@ This being the largest Rails project I've built so far, I learned such a tremend
 I feel questionable about how I handle the creation/deletion of notifications. I opted for using callback methods in the models of resources which are associated with notifications, but I can't determine if this is an appropriate use of callbacks. The outcome has exposed some redundancies, but I'm not sure if this is an issue with my implementation, or just poor design altogether.
 
 A final note on Turbo. This is my first time experiencing the frustrations of using a new technology that doesn't have thorough documentation. I can see why Rails was quick to add Turbo as the default but it being the default adds complications for Rails newbies. I don't think I could overstate how much time I spent working out issues concering Turbo for this project, all the while having a feeling of wandering alone and dehydrated in a barren desert... Haha! I got through it though, leveled up my investigative skills, and with a newfound appreciation for well-documented technologies and teamwork.
+
+
 
 ### Next Version
 
