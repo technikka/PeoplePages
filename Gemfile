@@ -48,6 +48,9 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# binding for the libvips image processing library
+gem 'ruby-vips', '~> 2.1', '>= 2.1.4'
+
 # Authentication
 gem 'devise', '~> 4.8', '>= 4.8.1'
 
