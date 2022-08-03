@@ -1,4 +1,5 @@
-<div class="grid grid-rows-2 grid-cols-2 gap-y-1 align-items-center border-solid border-b-2 border-amber-300 pb-2" >
+<%# Adding inline style to fix Tailwind width issue until better solution is found. %>
+<div class="grid grid-cols-2 gap-y-1 align-items-center border-solid border-b-2 border-amber-300 pb-2 pt-1" style="width: 610px" >
   <% author = post.user %>
 
   <div class=" col-start-1 row-start-1 pl-3 flex items-center" >
@@ -13,8 +14,9 @@
     <%= post.created_at.strftime('%B %e at %l:%M%P') %>
   </div>
 
-  <div class= "col-span-full flex items-center pl-3">
-    <%= sanitize(post.body.gsub(/\n/, "<br/>")) %>
+  <%# Adding inline style to fix Tailwind width issue until better solution is found. %>
+  <div class="col-span-full pl-3 pt-3 pb-3" style="overflow-wrap: break-word">
+    <%= sanitize(post.body.strip.gsub(/\n/, "<br/>")) %>
   </div>
 
   <% if post.updated_at != post.created_at %>

@@ -69,7 +69,7 @@
     </div>
   
     <div class="grid">
-      <h4 class="text-lg font-bold mt-8 pb-4">Friend Requests</h4>
+      <h4 class="text-lg font-bold mt-8 pb-4 justify-self-center">Friend Requests</h4>
         <% @friend_requests.each do |request| %>
 
             <%= turbo_frame_tag "incoming_request_#{request.user.id}" do %>
