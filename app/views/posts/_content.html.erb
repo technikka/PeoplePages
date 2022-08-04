@@ -1,4 +1,4 @@
-<%# Adding inline style to fix Tailwind width issue until better solution is found. %>
+<%# Adding inline style to fix Tailwind width issue until a better solution is found. %>
 <div class="grid grid-cols-2 gap-y-1 align-items-center border-solid border-b-2 border-amber-300 pb-2 pt-1" style="width: 610px" >
   <% author = post.user %>
 
@@ -14,7 +14,7 @@
     <%= post.created_at.strftime('%B %e at %l:%M%P') %>
   </div>
 
-  <%# Adding inline style to fix Tailwind width issue until better solution is found. %>
+  <%# Adding inline style to fix Tailwind break-words not working, until a better solution is found. %>
   <div class="col-span-full pl-3 pt-3 pb-3" style="overflow-wrap: break-word">
     <%= sanitize(post.body.strip.gsub(/\n/, "<br/>")) %>
   </div>
