@@ -64,6 +64,9 @@ gem 'cssbundling-rails', '~> 1.1', '>= 1.1.1'
 # Official AWS Ruby gem for Amazon Simple Storage Service (Amazon S3)
 gem 'aws-sdk-s3', '~> 1.114', require: false
 
+# For storing ENV variables
+gem 'figaro', '~> 1.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'pry-byebug', '~> 3.9', platforms: %i[ mri mingw x64_mingw ]
