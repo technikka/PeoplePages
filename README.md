@@ -2,6 +2,8 @@
 
 This is my final project for the Rails course over at [The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-rails-final-project). The goal was to implement the core user functionality of Facebook: users, profiles, posts, news feed, "friending" and "liking". A project this feature-heavy could have consumed me for months but I was only able to allow four weeks, and a fifth week spent debugging. This is what I was able to complete in that time, which was plenty to achieve my main goals. 
 
+Check it out live: [People Pages](https://people-pages.herokuapp.com) 
+^^ Note: at this time all profile images are stored locally for about a day, then lost. When I have more time I can continue troubleshooting the AWS S3 storage credentials issues that were preventing me from storing images.
 
 
 ## What this project is lacking, or, Notes on curious behavior
