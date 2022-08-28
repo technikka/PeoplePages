@@ -6,7 +6,9 @@ This is my final project for the Rails course over at [The Odin Project](https:/
 
 ## What this project is lacking, or, Notes on curious behavior
 
-* Error handeling-- because all my objects with validations are interacted with inside of a Turbo Frame or Stream, this complicated getting error messages to the user due to no redirect occurring. My understanding is that at this stage Turbo cannot handle 422 response errors and I ran out of time to implement an alternate solution. This causes undesirable behavior in a couple of cases, such as in submitting an empty post or comment.  
+* Error handeling-- because all my objects with validations are interacted with inside of a Turbo Frame or Stream, this complicated getting error messages to the user due to no redirect occurring. My understanding is that at this stage Turbo cannot handle 422 response errors and I ran out of time to implement an alternate solution. This causes undesirable behavior in a couple of cases, such as in submitting an empty post or comment.
+
+* Interacting with a Turbo frame after user session expires-- I use Devise to authenticate a user before any action is performed; if a session expires and a user clicks the "like" link, or any other link within a Turbo frame, a 401 response is triggered but I have not yet found a solution (within the scope of this project) to break out of the frame in order to properly redirect to the sign in page.  
 
 * Confirmation to delete resources (posts, comments)-- Turbo handles confirmations ("Are you sure?") and Turbo and I kept butting heads throughout this project. Despite giving fair time to this issue, adding a turbo_confirm to a link consistently broke the link so that no request is sent. I think requiring a confirmation to destroy a user resource is good practice, but I was unable to implement it here.
 
