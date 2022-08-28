@@ -1,5 +1,5 @@
 <% if comment %>
-  <div class="pb-2 grid grid-rows-3" id="<%= "comment_#{comment.id}" %>">
+  <div class="pb-2 grid" style="width: 610px" id="<%= "comment_#{comment.id}" %>">
 
     <div class="row-start-1 flex items-center pt-2">
       <div class="h-7 w-7 inline-block">
@@ -10,11 +10,11 @@
     </div>
 
 
-    <div class="pt-1 pl-10 row-start-2 col-start-1 col-span-full">
-      <%= comment.body %>
+    <div class="pt-1 pl-10 row-start-2 col-start-1 col-span-full" style="overflow-wrap: break-word; word-break: break-word;">
+      <%= sanitize(comment.body.strip.gsub(/\n/, "<br/>")) %>
     </div>
 
-    <%= turbo_frame_tag "like_#{comment.post.id}", class: "row-start-3 col-start-1 pl-10" do %>
+    <%= turbo_frame_tag "like_#{comment.post.id}", class: "row-start-3 col-start-1 pl-10 pt-2" do %>
       <% if comment.likes.any? { |like| like.user_id == current_user.id } %>
         <%= render partial: 'likes/unlike', locals: {resource: comment } %>
       <% else %>

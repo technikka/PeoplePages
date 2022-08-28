@@ -1,6 +1,7 @@
 <% post.comments.includes(:user).last(3).each do |comment| %>
   <% if comment %>
-    <div class="grid grid-rows-3" id="<%= "comment_#{comment.id}" %>">
+    <%# adding inline style because Tailwind width isnt working here. %>
+    <div class="grid" style="width: 610px" id="<%= "comment_#{comment.id}" %>">
 
       <div class="row-start-1 flex items-center pt-2">
         <div class="h-7 w-7 inline-block">
@@ -10,11 +11,12 @@
         <%= link_to comment.user.name, user_path(comment.user), data: { turbo_frame: "_top" }, class: "font-bold hover:text-sky-800 inline-block pl-3" %>
       </div>
 
-      <div class="pt-1 pl-10 row-start-2 col-start-1 col-span-full">
-        <%= comment.body %>
+      <%# adding inline style because Tailwind break word isnt working here. %>
+      <div class="pt-1 pl-10 row-start-2 col-start-1 col-span-full" style="overflow-wrap: break-word; word-break: break-word;">
+        <%= sanitize(comment.body.strip.gsub(/\n/, "<br/>")) %>
       </div>
 
-      <%= turbo_frame_tag "like_#{post.id}", class: "row-start-3 col-start-1 pl-10" do %>
+      <%= turbo_frame_tag "like_#{post.id}", class: "row-start-3 col-start-1 pl-10 pt-2" do %>
         <% if comment.likes.any? { |like| like.user_id == current_user.id } %>
           <%= render partial: 'likes/unlike', locals: {resource: comment } %>
         <% else %>
