@@ -1,4 +1,5 @@
 <img src="public/logo.png" alt="people pages logo" title="People Pages Logo">
+
 # People Pages
 
 This is my final project for the Rails course over at [The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-rails-final-project). The goal was to implement the core user functionality of Facebook: users, profiles, posts, news feed, "friending" and "liking". A project this feature-heavy could have consumed me for months but I was only able to allow four weeks, and a fifth week spent debugging. This is what I was able to complete in that time.
