@@ -8,9 +8,11 @@ This project exhibits a full scale CRUD app with complex associations and databa
 
 #### Accessing The App
 
-Check it out live: [People Pages](https://people-pages.herokuapp.com)
+Check it out live: [People Pages](https://people-pages.onrender.com)
 
 Authentication is required to access any part of this app. I welcome you to register as a new user, or reach out to me for the credentials of an existing test-user (whom has friends and activity to see) to view the full features of this application.
+
+Please **note** that this app lives on a free tier hosting service and so may take some time to load, and may function slowly as well.
 
 
 
