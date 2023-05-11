@@ -20,5 +20,8 @@ Rails.application.routes.draw do
   resources :comments, only: %i[index create destroy]
   resources :likes, only: %i[index create destroy]
 
-  root 'posts#index'
+  devise_scope :user do
+    root 'devise/sessions#new'
+  end
+
 end
